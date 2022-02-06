@@ -11,11 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.ucsd.cse110.lab5_room.model.IPerson;
+import edu.ucsd.cse110.lab5_room.model.Student;
 
 public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.ViewHolder> {
-    private final IPerson[] persons;
+    private final Student[] persons;
 
-    public PersonsViewAdapter(IPerson[] persons) {
+    public PersonsViewAdapter(Student[] persons) {
         super();
         this.persons = persons;
     }
@@ -44,7 +45,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         private final TextView personNameView;
-        private IPerson person;
+        private Student person;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -52,7 +53,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             itemView.setOnClickListener(this);
         }
 
-        public void setPerson(IPerson person) {
+        public void setPerson(Student person) {
             this.person = person;
             this.personNameView.setText(person.getName());
         }
@@ -60,10 +61,16 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
         @Override
         public void onClick(View view) {
             Context context = view.getContext();
+
+            Utilities.showAlert(context, "You clicked on " + this.person.getName() + "!");
+            /*
+            User story 7 here, just modify the PersonDetailActivity format
+
             Intent intent = new Intent(context, PersonDetailActivity.class);
             intent.putExtra("person_name", this.person.getName());
             intent.putExtra("person_notes", this.person.getNotes());
             context.startActivity(intent);
+            */
         }
     }
 }

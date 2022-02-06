@@ -23,4 +23,10 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("edu.ucsd.cse110.lab5ref", appContext.getPackageName());
     }
+
+    @Test
+    public void mainScreenContext() {
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        assertEquals("Carl", appContext.getText(R.id.persons_view));
+    }
 }
