@@ -66,7 +66,7 @@ public class btActivity extends AppCompatActivity {
             if (!btAdapter.isEnabled()) {
                 btSetting();
                 Intent intent = new Intent(btAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(intent, BT_ENABLED);
+                //startActivityForResult(intent, BT_ENABLED);
             }
         }
     }
