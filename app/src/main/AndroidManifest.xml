@@ -6,19 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-<<<<<<< HEAD
-=======
->>>>>>> 8760c8e4cd25f2f52c267d2033264041354b44b7
-
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-
-=======
->>>>>>> cc6855209afbc17a40bb613bdbc517e1d041b148
     <application
         android:name="edu.ucsd.cse110.lab5_room.internal.BoFApplication"
         android:allowBackup="true"
@@ -36,8 +23,6 @@
         <activity
             android:name=".PersonDetailActivity"
             android:exported="false" />
-        <activity android:name=".btActivity"
-            android:exported="false"/>
 
         <activity
             android:name=".MainActivity"
