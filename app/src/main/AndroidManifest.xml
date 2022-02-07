@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ucsd.cse110.lab5_room" >
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+=======
+>>>>>>> 8760c8e4cd25f2f52c267d2033264041354b44b7
 
     <application
         android:allowBackup="true"
@@ -15,7 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab5Ref" >
         <activity
+<<<<<<< HEAD
             android:name=".btActivity"
+=======
+            android:name=".auth.CreateProfilePictureActivity"
+>>>>>>> 8760c8e4cd25f2f52c267d2033264041354b44b7
             android:exported="false" />
         <activity
             android:name=".auth.LoginActivity"

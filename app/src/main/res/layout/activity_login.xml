@@ -20,6 +20,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/textbox_margin"
+        android:layout_marginEnd="@dimen/textbox_margin"
         app:layout_constraintTop_toBottomOf="@id/login_title"
         app:layout_constraintBottom_toTopOf="@id/login_btn_next"
         app:layout_constraintStart_toStartOf="parent"
