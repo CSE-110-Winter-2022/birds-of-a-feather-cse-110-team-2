@@ -14,6 +14,8 @@ public class LoginActivity extends AuthActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        checkBluetoothStatus(this);
     }
 
     public void onGoogleLoginClicked(View v) {
