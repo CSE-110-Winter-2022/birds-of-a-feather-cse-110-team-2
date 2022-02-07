@@ -2,8 +2,10 @@ package edu.ucsd.cse110.lab5_room.auth;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import edu.ucsd.cse110.lab5_room.R;
+import edu.ucsd.cse110.lab5_room.internal.BoFButton;
 
 public class CreateProfilePictureActivity extends AuthActivity {
 
@@ -11,6 +13,10 @@ public class CreateProfilePictureActivity extends AuthActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile_picture);
+
+        EditText url = findViewById(R.id.pfp_field_url);
+        BoFButton nextBtn = findViewById(R.id.pfp_btn_next);
+        nextBtn.trackEnable(url);
     }
 
     public void onProfilePicNextClicked(View v) {
