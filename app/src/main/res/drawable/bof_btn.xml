@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/bof_pinkish" />
-    <corners android:radius="30dp" />
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true">
+        <shape>
+            <solid android:color="@color/bof_pinkish" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+    <item android:state_enabled="false">
+        <shape>
+            <solid android:color="#cccccc" />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+</selector>
+
 <!--<vector xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--    android:width="90dp"-->
 <!--    android:height="51dp"-->

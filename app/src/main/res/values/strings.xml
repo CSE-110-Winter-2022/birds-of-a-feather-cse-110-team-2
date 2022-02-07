@@ -20,4 +20,6 @@
     <string name="bluetooth_prompt">Bluetooth connection is required for this app. Please turn on Bluetooth for your device in your settings.</string>
     <string name="paste_the_url_here">Paste the URL here!</string>
     <string name="add_profile_picture">Add Profile Picture</string>
+    <string name="go_to_settings">Request Permissions</string>
+    <string name="not_now">Settings</string>
 </resources>

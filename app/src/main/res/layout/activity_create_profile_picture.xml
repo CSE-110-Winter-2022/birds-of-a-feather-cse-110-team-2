@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <android.widget.Button
+    <edu.ucsd.cse110.lab5_room.internal.BoFButton
         android:id="@+id/pfp_btn_next"
         style="@style/btn_standard"
         android:layout_width="wrap_content"

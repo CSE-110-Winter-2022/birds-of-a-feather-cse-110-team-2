@@ -65,7 +65,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <android.widget.Button
+    <edu.ucsd.cse110.lab5_room.internal.BoFButton
         android:id="@+id/login_btn_next"
         style="@style/btn_standard"
         android:layout_width="wrap_content"
@@ -74,6 +74,7 @@
         android:text="@string/next"
         android:textAppearance="@style/btn_login"
         android:onClick="onLoginNextClicked"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
