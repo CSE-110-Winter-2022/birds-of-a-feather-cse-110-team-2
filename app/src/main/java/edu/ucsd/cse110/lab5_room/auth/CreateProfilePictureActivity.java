@@ -1,9 +1,11 @@
 package edu.ucsd.cse110.lab5_room.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import edu.ucsd.cse110.lab5_room.MainActivity;
 import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.internal.BoFButton;
 
@@ -20,6 +22,8 @@ public class CreateProfilePictureActivity extends AuthActivity {
     }
 
     public void onProfilePicNextClicked(View v) {
-
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("logged_in", true);
+        startActivity(intent);
     }
 }
