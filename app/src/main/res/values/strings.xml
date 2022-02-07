@@ -16,4 +16,6 @@
     <string name="sign_in_with_google">Sign In with Google</string>
     <string name="or">OR</string>
     <string name="welcome">Welcome!</string>
+    <string name="bluetooth_required">Bluetooth Required</string>
+    <string name="bluetooth_prompt">Bluetooth connection is required for this app. Please turn on Bluetooth for your device in your settings.</string>
 </resources>

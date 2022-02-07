@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_horizontal_rule_24_red" />
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/ic_baseline_horizontal_rule_24_red" />-->
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Bluetooth Required"
+        android:text="@string/bluetooth_required"
         android:textColor="@color/black"
         android:textSize="25dp"
         android:textStyle="bold"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Bluetooth connection is required for this app. Please turn on Bluetooth for your device in your settings."
+        android:text="@string/bluetooth_prompt"
         android:textSize="19.5dp"
         tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="195dp" />

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
 import edu.ucsd.cse110.lab5_room.model.DummyStudent;
 import edu.ucsd.cse110.lab5_room.model.Student;
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle(R.string.app_title);
 
-        // TODO change this!! temporary
+        // TODO change this to only happen if not logged in
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".auth.LoginActivity">
 
     <TextView
         android:id="@+id/login_title"
@@ -53,7 +53,7 @@
         <EditText
             android:id="@+id/login_field_firstname"
             style="@style/bof_textbox"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:hint="@string/first_name"
@@ -69,10 +69,9 @@
         android:layout_width="wrap_content"
         android:layout_marginBottom="30dp"
         android:background="@drawable/bof_btn"
-        android:text="Next"
+        android:text="@string/next"
         android:textAppearance="@style/btn_login"
         android:onClick="onLoginNextClicked"
-        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

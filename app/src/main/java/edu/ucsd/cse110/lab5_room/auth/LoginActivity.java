@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room;
+package edu.ucsd.cse110.lab5_room.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.Objects;
+
+import edu.ucsd.cse110.lab5_room.R;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = "LoginActivity";

@@ -10,10 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab5Ref">
         <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BluetoothActivity"
+            android:name=".auth.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".PersonDetailActivity"
