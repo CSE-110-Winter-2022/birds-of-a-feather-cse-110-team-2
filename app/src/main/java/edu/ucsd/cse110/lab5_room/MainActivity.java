@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import edu.ucsd.cse110.lab5_room.model.DummyPerson;
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle(R.string.app_title);
+
+        // TODO change this!! temporary
+        Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
 
         personsRecyclerView = findViewById(R.id.persons_view);
 

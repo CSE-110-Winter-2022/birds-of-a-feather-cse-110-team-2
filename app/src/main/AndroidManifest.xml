@@ -10,10 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab5Ref">
         <activity
-            android:name="edu.ucsd.cse110.lab5_room.PersonDetailActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name="edu.ucsd.cse110.lab5_room.MainActivity"
+            android:name=".BluetoothActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PersonDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
