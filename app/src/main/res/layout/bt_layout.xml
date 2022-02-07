@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bottom_back"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_horizontal_rule_24_red" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Bluetooth Required"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="118dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Bluetooth connection is required for this app. Please turn on Bluetooth for your device in your settings."
+        android:textSize="19.5dp"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="195dp" />
+
+    <Button
+        android:id="@+id/btn_Setting"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:backgroundTint="@color/pinkish"
+        android:text="Go to Settings"
+        android:textSize="18dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="311dp"
+        />
+
+    <Button
+        android:id="@+id/btn_not"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00ff0000"
+        android:text="Not Now"
+        android:textColor="@color/pinkish"
+        android:textSize="18dp"
+        android:textAllCaps="false"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="398dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
