@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bottom_back"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:context=".btActivity"
+    >
 
 <!--    <ImageView-->
 <!--        android:layout_width="match_parent"-->
@@ -30,12 +32,13 @@
         tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="195dp" />
 
+   <!-- I don't know why but the color doesn't change. -->
     <Button
         android:id="@+id/btn_Setting"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:backgroundTint="@color/pinkish"
+        style="@style/btn_standard"
         android:text="Go to Settings"
         android:textSize="18dp"
         android:paddingLeft="18dp"
@@ -46,6 +49,7 @@
         android:textAllCaps="false"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="311dp"
+        android:background="@drawable/bof_btn"
         />
 
     <Button

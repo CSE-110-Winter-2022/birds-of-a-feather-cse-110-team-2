@@ -4,14 +4,24 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.2675925925925926" />
-        <entry key="app/src/main/res/drawable/bluetooth_w.xml" value="0.3638888888888889" />
-        <entry key="app/src/main/res/drawable/bof_btn.xml" value="0.1685185185185185" />
-        <entry key="app/src/main/res/drawable/google_logo.xml" value="0.3638888888888889" />
-        <entry key="app/src/main/res/layout/activity_bluetooth.xml" value="0.3442028985507246" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2673832866677661" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2962962962962963" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/drawable/bof_btn.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/drawable/bof_textbox.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/drawable/bottom_back.xml" value="0.2962962962962963" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/drawable/google_logo.xml" value="0.34739583333333335" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/drawable/ic_baseline_horizontal_rule_24_red.xml" value="0.2564814814814815" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2962962962962963" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/drawable/shape.xml" value="0.2962962962962963" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/layout/activity_bt.xml" value="0.16058763931104356" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/layout/activity_bt2.xml" value="0.26851851851851855" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/layout/activity_login.xml" value="0.33125" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/layout/activity_person_detail.xml" value="0.1" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/layout/bt_layout.xml" value="0.33" />
+        <entry key="..\:/Users/dakga/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/layout/person_row.xml" value="0.20555555555555555" />
+        <entry key="..\:/Users/qiumi/AndroidStudioProjects/birds-of-a-feather-cse-110-team-2/app/src/main/res/layout/activity_main.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3885416666666667" />
         <entry key="app/src/main/res/layout/activity_person_detail.xml" value="0.34656247080693603" />
-        <entry key="app/src/main/res/layout/bt_layout.xml" value="0.2203125" />
         <entry key="app/src/main/res/layout/people_row.xml" value="0.5334495365013289" />
       </map>
     </option>
