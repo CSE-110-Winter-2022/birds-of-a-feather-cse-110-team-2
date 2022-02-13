@@ -15,7 +15,38 @@
 
     <!-- Strings for add classes activity -->
     <string name="add_your_classes">Add Your Classes!</string>
-    <string name="add_more_classes">Add another class</string>
-    <string name="btn_confirm">Confirm</string>
+    <string name="current_added_classes">Added Classes:</string>
+    <string name="btn_confirm">Add</string>
     <string name="btn_finish">Finish!</string>
+
+    <!-- Strings for dialog box -->
+    <string name="error_title">Alert!</string>
+    <string name="error_message_1">Make sure to enter in all of the fields!</string>
+    <string name="error_message_2">You have already added this class!</string>
+    <string name="error_message_3">You have to add at least one class!</string>
+    <string name="close">Close</string>
+
+    <!-- String array for years -->
+    <string-array name="year_array">
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+    </string-array>
+
+    <string-array name="quarter_array">
+        <item>F</item>
+        <item>W</item>
+        <item>SP</item>
+        <item>SS1</item>
+        <item>SS2</item>
+    </string-array>
+
+    <string-array name="subject_array">
+        <item>CSE</item>
+        <item>ECE</item>
+    </string-array>
 </resources>

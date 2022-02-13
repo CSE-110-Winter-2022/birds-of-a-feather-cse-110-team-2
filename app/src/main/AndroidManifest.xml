@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Lab5Ref">
         <activity
             android:name=".AddClassesActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".PersonDetailActivity"
             android:exported="false" />
