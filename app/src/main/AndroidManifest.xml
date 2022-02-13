@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ucsd.cse110.lab5_room">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,10 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab5Ref">
         <activity
-            android:name="edu.ucsd.cse110.lab5_room.PersonDetailActivity"
+            android:name=".AddClassesActivity"
             android:exported="false" />
         <activity
-            android:name="edu.ucsd.cse110.lab5_room.MainActivity"
+            android:name=".PersonDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
