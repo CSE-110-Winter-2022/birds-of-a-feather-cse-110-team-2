@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import edu.ucsd.cse110.lab5_room.AddClassesActivity;
 import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.internal.BoFButton;
 import edu.ucsd.cse110.lab5_room.internal.Constants;

@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab5Ref">
         <activity
-            android:name=".AddClassesActivity"
+            android:name=".auth.AddClassesActivity"
             android:exported="false" />
         <activity
             android:name=".auth.CreateProfilePictureActivity"
