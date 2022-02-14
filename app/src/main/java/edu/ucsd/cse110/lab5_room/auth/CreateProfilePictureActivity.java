@@ -7,6 +7,9 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import edu.ucsd.cse110.lab5_room.MainActivity;
 import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.internal.BoFButton;
