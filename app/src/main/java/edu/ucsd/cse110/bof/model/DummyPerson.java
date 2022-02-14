@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room.model;
+package edu.ucsd.cse110.bof.model;
 
 public class DummyPerson implements IPerson {
     private final String name;

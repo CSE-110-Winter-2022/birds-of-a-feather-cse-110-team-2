@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "edu.ucsd.cse110.lab5ref"
+        applicationId "edu.ucsd.cse110.bof"
         minSdk 28
         targetSdk 31
         versionCode 1
@@ -32,6 +32,7 @@ android {
 
 dependencies {
 
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'

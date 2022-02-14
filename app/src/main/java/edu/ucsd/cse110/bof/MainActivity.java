@@ -1,18 +1,17 @@
-package edu.ucsd.cse110.lab5_room;
+package edu.ucsd.cse110.bof;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import edu.ucsd.cse110.lab5_room.model.DummyPerson;
-import edu.ucsd.cse110.lab5_room.model.DummyStudent;
-import edu.ucsd.cse110.lab5_room.model.IPerson;
-import edu.ucsd.cse110.lab5_room.model.Student;
+import edu.ucsd.cse110.bof.model.DummyPerson;
+import edu.ucsd.cse110.bof.model.DummyStudent;
+import edu.ucsd.cse110.bof.model.IPerson;
+import edu.ucsd.cse110.bof.model.Student;
 
 public class MainActivity extends AppCompatActivity {
     protected RecyclerView personsRecyclerView;

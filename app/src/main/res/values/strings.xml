@@ -13,6 +13,10 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="go_back">Go Back</string>
 
+    <!-- Strings for add name activity -->
+    <string name="welcome">Welcome!</string>
+    <string name="or">OR</string>
+
     <!-- Strings for add classes activity -->
     <string name="add_your_classes">Add Your Classes!</string>
     <string name="current_added_classes">Added Classes:</string>
@@ -24,6 +28,7 @@
     <string name="error_message_1">Make sure to enter in all of the fields!</string>
     <string name="error_message_2">You have already added this class!</string>
     <string name="error_message_3">You have to add at least one class!</string>
+    <string name="error_message_4">Make sure you either sign in with google or enter your name!</string>
     <string name="close">Close</string>
 
     <!-- String array for years -->

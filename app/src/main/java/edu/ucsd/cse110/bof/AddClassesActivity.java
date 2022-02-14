@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room;
+package edu.ucsd.cse110.bof;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;

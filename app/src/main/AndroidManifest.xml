@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.ucsd.cse110.lab5_room">
+    package="edu.ucsd.cse110.bof">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,13 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab5Ref">
         <activity
-            android:name=".AddClassesActivity"
+            android:name="edu.ucsd.cse110.bof.AddNameActivity"
             android:exported="true" />
         <activity
-            android:name=".PersonDetailActivity"
+            android:name="edu.ucsd.cse110.bof.AddClassesActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="edu.ucsd.cse110.bof.PersonDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="edu.ucsd.cse110.bof.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

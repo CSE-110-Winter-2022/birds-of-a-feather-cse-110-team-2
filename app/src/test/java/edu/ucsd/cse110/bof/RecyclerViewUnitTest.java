@@ -1,11 +1,11 @@
-package edu.ucsd.cse110.lab5_room;
+package edu.ucsd.cse110.bof;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import edu.ucsd.cse110.lab5_room.model.DummyStudent;
-import edu.ucsd.cse110.lab5_room.model.Student;
+import edu.ucsd.cse110.bof.model.DummyStudent;
+import edu.ucsd.cse110.bof.model.Student;
 
 public class RecyclerViewUnitTest {
 

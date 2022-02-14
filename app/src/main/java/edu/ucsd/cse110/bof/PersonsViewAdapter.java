@@ -1,6 +1,4 @@
-package edu.ucsd.cse110.lab5_room;
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
+package edu.ucsd.cse110.bof;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,8 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import edu.ucsd.cse110.lab5_room.model.IPerson;
-import edu.ucsd.cse110.lab5_room.model.Student;
+import edu.ucsd.cse110.bof.model.Student;
 
 public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.ViewHolder> {
     private final Student[] persons;

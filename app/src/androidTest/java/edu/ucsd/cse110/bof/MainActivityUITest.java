@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room;
+package edu.ucsd.cse110.bof;
 
 
 import static androidx.test.espresso.Espresso.onView;
