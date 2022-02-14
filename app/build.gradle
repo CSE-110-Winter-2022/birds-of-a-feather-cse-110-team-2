@@ -43,4 +43,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0-alpha03'
     androidTestImplementation 'androidx.test:rules:1.4.1-alpha03'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.0-alpha03'
+
+
+    //image loading library
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

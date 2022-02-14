@@ -30,6 +30,7 @@ public class DummyStudent implements Student{
         return isClose;
     }
 
+    @Override
     public String[] getClasses() {
         return classes;
     }

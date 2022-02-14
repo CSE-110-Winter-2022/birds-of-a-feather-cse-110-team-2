@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean start = true;
 
     protected Student[] studentData = {
-            new DummyStudent("Alice", "alice.com", new String[]{"CSE 11"}, true),
+            new DummyStudent("Alice", "https://www.wallpapers13.com/wp-content/uploads/2015/12/Nature-Lake-Bled.-Desktop-background-image-915x515.jpg", new String[]{"CSE 11"}, true),
             new DummyStudent("Bob", "bob.net", new String[]{"ENG 3"}, false),
-            new DummyStudent("Carl", "carl.org", new String[]{"CSE 101"}, true)
+            new DummyStudent("Carl", "https://www.bible-bridge.com/wp-content/uploads/favicon-256x256.png?x59487", new String[]{"CSE 101"}, true)
     };
 
     @Override
