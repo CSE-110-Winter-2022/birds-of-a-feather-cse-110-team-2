@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -162,7 +163,7 @@ public class AddClassesActivity extends AppCompatActivity {
         } else {
             Intent mainIntent = new Intent(AddClassesActivity.this, CreateProfilePictureActivity.class);
             mainIntent.putExtra(Constants.USER_NAME, getIntent().getStringExtra(Constants.USER_NAME));
-            mainIntent.putExtra(Constants.USER_COURSES, courses.toArray());
+            mainIntent.putExtra(Constants.USER_COURSES, courses.toArray(new ArrayList<>(courses).toArray(new String[0])));
             startActivity(mainIntent);
         }
     }
