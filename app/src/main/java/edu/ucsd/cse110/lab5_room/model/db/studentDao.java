@@ -1,6 +1,8 @@
 package edu.ucsd.cse110.lab5_room.model.db;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
@@ -14,4 +16,10 @@ public interface studentDao {
 
     @Query("SELECT * FROM students WHERE student_id=:id")
     student get(int id);
+
+    @Insert
+    void insert(student s);
+
+    @Delete
+    void delete(student s);
 }
