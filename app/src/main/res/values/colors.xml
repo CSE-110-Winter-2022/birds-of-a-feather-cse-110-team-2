@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="pinkish">#FFEC7970</color>
     <color name="darker_pinkish">#FFDB2D2D</color>
+    <color name="login_btn_text">#8A000000</color>
+    <color name="bof_pinkish">#EC7970</color>
 </resources>

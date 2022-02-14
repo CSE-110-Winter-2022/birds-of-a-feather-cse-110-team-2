@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.ucsd.cse110.lab5_room">
-
+    package="edu.ucsd.cse110.lab5_room" >
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
+        android:name="edu.ucsd.cse110.lab5_room.internal.BoFApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Lab5Ref">
+        android:theme="@style/Theme.Lab5Ref" >
         <activity
-            android:name="edu.ucsd.cse110.lab5_room.PersonDetailActivity"
+            android:name=".auth.CreateProfilePictureActivity"
             android:exported="false" />
         <activity
-            android:name="edu.ucsd.cse110.lab5_room.MainActivity"
-            android:exported="true">
+            android:name=".auth.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PersonDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -4,14 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import edu.ucsd.cse110.lab5_room.model.DummyPerson;
+import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
+import edu.ucsd.cse110.lab5_room.internal.Constants;
 import edu.ucsd.cse110.lab5_room.model.DummyStudent;
-import edu.ucsd.cse110.lab5_room.model.IPerson;
 import edu.ucsd.cse110.lab5_room.model.Student;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,21 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected PersonsViewAdapter personsViewAdapter;
 
     private boolean start = true;
-
-    protected IPerson[] data = {
-            new DummyPerson("Jane Doe", new String[]{
-                    "Likes cats.",
-                    "Favorite color is blue."
-            }),
-            new DummyPerson("John Public", new String[]{
-                    "Likes dogs.",
-                    "Favorite color is red."
-            }),
-            new DummyPerson("Richard Roe", new String[]{
-                    "Likes birds.",
-                    "Favorite color is yellow."
-            })
-    };
 
     protected Student[] studentData = {
             new DummyStudent("Alice", "https://www.wallpapers13.com/wp-content/uploads/2015/12/Nature-Lake-Bled.-Desktop-background-image-915x515.jpg", new String[]{"CSE 11"}, true),
@@ -47,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle(R.string.app_title);
+
+        // TODO change this to an actual login system
+        Intent launchedWith = getIntent();
+        boolean loggedIn = launchedWith.getBooleanExtra(Constants.INTENT_LOGGED_IN, false);
+        if (!loggedIn) {
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+        }
 
         personsRecyclerView = findViewById(R.id.persons_view);
 

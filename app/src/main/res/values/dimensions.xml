@@ -2,4 +2,8 @@
 <resources>
     <dimen name="list_item_height">64sp</dimen>
     <dimen name="margin">16sp</dimen>
+    <dimen name="btn_corner_radius">30dp</dimen>
+    <dimen name="btn_height">58dp</dimen>
+    <dimen name="textbox_padding">16dp</dimen>
+    <dimen name="textbox_margin">80dp</dimen>
 </resources>

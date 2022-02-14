@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bottom_back"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+    <TextView
+        android:id="@+id/promptbt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/bluetooth_required"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/promptbt_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:text="@string/bluetooth_prompt"
+        android:textSize="19.5dp"
+        app:layout_constraintTop_toBottomOf="@id/promptbt_title" />
+
+   <!-- I don't know why but the color doesn't change. -->
+    <android.widget.Button
+        android:id="@+id/promptbt_btn_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        style="@style/btn_standard"
+        android:text="@string/go_to_settings"
+        android:textSize="18dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@id/promptbt_prompt"/>
+
+    <Button
+        android:id="@+id/promptbt_btn_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00ff0000"
+        android:text="@string/not_now"
+        android:textColor="@color/pinkish"
+        android:textSize="18dp"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/promptbt_btn_request"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
