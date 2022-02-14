@@ -14,8 +14,12 @@ public class student {
     @ColumnInfo(name = "name")
     private String name;
 
-    public student(String name) {
+    @ColumnInfo(name = "photo_url")
+    private String photo_url;
+
+    public student(String name, String photo_url) {
         this.name = name;
+        this.photo_url = photo_url;
     }
 
     public int getStudentId() {
@@ -34,4 +38,7 @@ public class student {
         this.name = name;
     }
 
+    public String getPhotoURL() {return this.photo_url;}
+
+    public void setPhotoURL(String newPhotoURL) {this.photo_url = newPhotoURL;}
 }
