@@ -15,6 +15,8 @@ import edu.ucsd.cse110.lab5_room.internal.CustomFilter;
 public class LoginActivity extends AuthActivity {
     private final String TAG = "LoginActivity";
 
+    private EditText firstName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +24,7 @@ public class LoginActivity extends AuthActivity {
 
         checkBluetoothStatus(this);
 
-        EditText firstName = findViewById(R.id.login_field_firstname);
+        firstName = findViewById(R.id.login_field_firstname);
         firstName.setFilters(new InputFilter[]{
                 new CustomFilter(Constants.CHARSET_ALPHA_LATIN),
                 new InputFilter.LengthFilter(20)
@@ -37,7 +39,8 @@ public class LoginActivity extends AuthActivity {
     }
 
     public void onLoginNextClicked(View v) {
-        Intent intent = new Intent(this, CreateProfilePictureActivity.class);
+        Intent intent = new Intent(this, AddClassesActivity.class);
+        intent.putExtra(Constants.USER_NAME, this.firstName.getText().toString());
         startActivity(intent);
     }
 }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.AddClassesActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_your_classes"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <Spinner
+        android:id="@+id/spinner_course_year"
+        android:layout_width="196dp"
+        android:layout_height="43dp"
+        android:background="@drawable/custom_spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <Spinner
+        android:id="@+id/spinner_course_quarter"
+        android:layout_width="196dp"
+        android:layout_height="43dp"
+        android:background="@drawable/custom_spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_course_year"
+        app:layout_constraintVertical_bias="0.074" />
+
+    <Spinner
+        android:id="@+id/spinner_course_subject"
+        android:layout_width="196dp"
+        android:layout_height="43dp"
+        android:background="@drawable/custom_spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_course_quarter"
+        app:layout_constraintVertical_bias="0.079" />
+
+    <TextView
+        android:id="@+id/tv_added_classes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="88dp"
+        android:text="@string/current_added_classes"
+        android:textColor="@color/pinkish"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_confirm"
+        app:layout_constraintVertical_bias="0.232" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="117dp"
+        android:layout_height="52dp"
+        android:backgroundTint="@color/pinkish"
+        android:onClick="onAddClicked"
+        android:text="@string/btn_confirm"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_number_et"
+        app:layout_constraintVertical_bias="0.144" />
+
+    <Button
+        android:id="@+id/btn_finish"
+        android:layout_width="120dp"
+        android:layout_height="51dp"
+        android:backgroundTint="@color/grey"
+        android:text="@string/btn_finish"
+        android:onClick="onFinishClicked"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_added_classes"
+        app:layout_constraintVertical_bias="0.208" />
+
+    <EditText
+        android:id="@+id/course_number_et"
+        android:layout_width="195dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:hint="Course Number"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_course_subject"
+        app:layout_constraintVertical_bias="0.124" />
+</androidx.constraintlayout.widget.ConstraintLayout>
