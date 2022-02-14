@@ -1,11 +1,10 @@
-package edu.ucsd.cse110.lab5_room;
+package edu.ucsd.cse110.lab5_room.auth;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +18,7 @@ import android.widget.Toast;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.ucsd.cse110.lab5_room.auth.CreateProfilePictureActivity;
+import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.internal.Constants;
 
 public class AddClassesActivity extends AppCompatActivity {

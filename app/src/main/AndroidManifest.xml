@@ -26,7 +26,7 @@
             android:value="AIzaSyAlpPUnCUI3ExUjqguuPdqISpJ2cglDP5U" />
 
         <activity
-            android:name=".AddClassesActivity"
+            android:name=".auth.AddClassesActivity"
             android:exported="false" />
         <activity
             android:name=".auth.CreateProfilePictureActivity"
