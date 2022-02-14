@@ -56,8 +56,6 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
 
         private Student person;
 
-
-
         ViewHolder(View itemView) {
             super(itemView);
             this.personNameView = itemView.findViewById(R.id.person_row_name);
@@ -78,7 +76,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             Intent intent = new Intent(context, PersonDetailActivity.class);
             intent.putExtra("student_name", this.person.getName());
             intent.putExtra("student_is_close", this.person.isClose());
-            intent.putExtra("student_classes", this.person.getClasses());
+//            intent.putExtra("student_classes", this.person.getClasses());
             intent.putExtra("student_photo_url", this.person.getPhotoURL());
             context.startActivity(intent);
         }

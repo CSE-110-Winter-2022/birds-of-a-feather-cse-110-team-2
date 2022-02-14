@@ -7,15 +7,9 @@ import java.util.Set;
 
 public class CustomFilter implements InputFilter {
     private final Set<Character> filter;
-    private final int maxLength;
 
     public CustomFilter(Set<Character> filter) {
-        this(filter, -1);
-    }
-
-    public CustomFilter(Set<Character> filter, int maxLength) {
         this.filter = filter;
-        this.maxLength = -1;
     }
 
     public InputFilter[] asSingleton() {

@@ -16,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import edu.ucsd.cse110.lab5_room.R;
@@ -39,18 +42,30 @@ public class AuthActivity extends AppCompatActivity {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     protected static void checkBluetoothStatus(Activity context) {
         BoFApplication application = (BoFApplication) context.getApplication();
         application.executorService.submit(() -> {
-            String[] permissions = {
-                    Manifest.permission.BLUETOOTH,
-//                    Manifest.permission.BLUETOOTH_SCAN,
-                    Manifest.permission.BLUETOOTH_ADMIN,
-//                    Manifest.permission.BLUETOOTH_ADVERTISE,
+            List<String> perms = new ArrayList<>(Arrays.asList(
                     Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            };
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_WIFI_STATE,
+                    Manifest.permission.CHANGE_WIFI_STATE));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                perms.addAll(Arrays.asList(
+                        Manifest.permission.BLUETOOTH_ADVERTISE,
+                        Manifest.permission.BLUETOOTH_CONNECT,
+                        Manifest.permission.BLUETOOTH_SCAN)
+                );
+            }
+            else {
+                perms.addAll(Arrays.asList(
+                        Manifest.permission.BLUETOOTH,
+                        Manifest.permission.BLUETOOTH_ADMIN
+                ));
+            }
+
+            String[] permissions = perms.toArray(new String[0]);
 
             if (!EasyPermissions.hasPermissions(context, permissions)) {
                 context.runOnUiThread(() -> {
