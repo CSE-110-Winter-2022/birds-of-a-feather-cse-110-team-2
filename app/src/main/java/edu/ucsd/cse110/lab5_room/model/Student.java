@@ -5,4 +5,6 @@ public interface Student {
     String getPhotoURL();
     String[] getClasses();
     boolean isClose();
+    boolean isFavorite();
+    void toggleFavorite();
 }
