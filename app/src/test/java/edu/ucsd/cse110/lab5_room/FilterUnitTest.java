@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Filter;
 
 import edu.ucsd.cse110.lab5_room.model.DummyStudent;
 import edu.ucsd.cse110.lab5_room.model.Student;
@@ -23,8 +24,8 @@ public class FilterUnitTest {
 
         List<Student> FilteredStudent = StudentFilter.filterStudents(studentData, StudentFilter.FilterType.FAVORITES, "");
         assertEquals(FilteredStudent.size(), 2);
-        
-
+        assertEquals(FilteredStudent.get(0).getName().equals("Alice"), true);
+        assertEquals(FilteredStudent.get(1).getName().equals("Carl"), true);
     }
 
     @Test
@@ -35,8 +36,9 @@ public class FilterUnitTest {
             new DummyStudent("Carl", "carl.org", new String[]{"2022+Winter+CSE+101"}, true, true)
         };
 
-        List<Student> favoriteStudents = StudentFilter.filterStudents(studentData, StudentFilter.FilterType.CLASS_RECENT, "CLASS_RECENT?2022+Spring");
-        assertEquals(favoriteStudents.size(), 1);
+        List<Student> recentStudents = StudentFilter.filterStudents(studentData, StudentFilter.FilterType.CLASS_RECENT, "CLASS_RECENT?2022+Spring");
+        assertEquals(recentStudents.size(), 1);
+        assertEquals(recentStudents.get(0).getName().equals("Alice"), true);
     }
 
 }
