@@ -64,4 +64,13 @@
         <item>CSE</item>
         <item>ECE</item>
     </string-array>
+
+    <string-array name="classSize_array">
+        <item>Tiny (0-40)</item>
+        <item>Small (41-75)</item>
+        <item>Medium (76-150)</item>
+        <item>Large (151-250)</item>
+        <item>Huge (251-400)</item>
+        <item>Gigantic (400+)</item>
+    </string-array>
 </resources>
