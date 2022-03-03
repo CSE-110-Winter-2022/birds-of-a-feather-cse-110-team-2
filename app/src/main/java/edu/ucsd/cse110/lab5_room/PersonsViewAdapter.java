@@ -1,10 +1,9 @@
 package edu.ucsd.cse110.lab5_room;
 
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
-
 import android.content.Context;
 import android.content.Intent;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import edu.ucsd.cse110.lab5_room.model.IPerson;
-import edu.ucsd.cse110.lab5_room.model.Student;
+import edu.ucsd.cse110.lab5_room.model.Match;
 
 public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.ViewHolder> {
-    private final Student[] persons;
+    private final Match[] persons;
 
-    public PersonsViewAdapter(Student[] persons) {
+    public PersonsViewAdapter(Match[] persons) {
         super();
         this.persons = persons;
     }
@@ -54,7 +52,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
         private final TextView personNameView;
         private final ImageView personPictureView;
 
-        private Student person;
+        private Match person;
 
 
 
@@ -65,7 +63,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             itemView.setOnClickListener(this);
         }
 
-        public void setPerson(Student person) {
+        public void setPerson(Match person) {
             this.person = person;
             this.personNameView.setText(person.getName());
             Picasso.get().load(person.getPhotoURL()).into(personPictureView);
@@ -77,8 +75,8 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
             //Utilities.showAlert(context, "You clicked on " + this.person.getName() + "!");
             Intent intent = new Intent(context, PersonDetailActivity.class);
             intent.putExtra("student_name", this.person.getName());
-            intent.putExtra("student_is_close", this.person.isClose());
-            intent.putExtra("student_classes", this.person.getClasses());
+//            intent.putExtra("student_is_close", this.person.isClose());
+            intent.putExtra("student_classes", (Parcelable) this.person.getClasses());
             intent.putExtra("student_photo_url", this.person.getPhotoURL());
             context.startActivity(intent);
         }
