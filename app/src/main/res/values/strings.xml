@@ -25,9 +25,13 @@
 
     <!-- Strings for add classes activity -->
     <string name="add_your_classes">Add Your Classes!</string>
+    <string name="edit_your_classes">Edit Class</string>
     <string name="current_added_classes">Added Classes:</string>
+    <string name="add_another_class">Add another Class</string>
     <string name="btn_confirm">Add</string>
+    <string name="btn_confirm_2">Confirm</string>
     <string name="btn_finish">Finish!</string>
+    <string name="btn_done">Done</string>
 
     <!-- Strings for dialog box -->
     <string name="error_title">Alert!</string>
@@ -59,5 +63,14 @@
     <string-array name="subject_array">
         <item>CSE</item>
         <item>ECE</item>
+    </string-array>
+
+    <string-array name="classSize_array">
+        <item>Tiny (0-40)</item>
+        <item>Small (41-75)</item>
+        <item>Medium (76-150)</item>
+        <item>Large (151-250)</item>
+        <item>Huge (251-400)</item>
+        <item>Gigantic (400+)</item>
     </string-array>
 </resources>

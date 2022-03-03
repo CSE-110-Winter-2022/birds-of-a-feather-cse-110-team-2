@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 public class PersonDetailActivity extends AppCompatActivity {
 
     @Override
@@ -38,6 +40,8 @@ public class PersonDetailActivity extends AppCompatActivity {
         studentNameID.setText(personName);
         class1ID.setText(class1[0]);
         ImageURLID.setText(imageURL);
+
+        Picasso.get().load(imageURL).into((ImageView) findViewById(R.id.student_profile));
 
         if(isClose){
             isCloseID.setText(personName + " is close!");

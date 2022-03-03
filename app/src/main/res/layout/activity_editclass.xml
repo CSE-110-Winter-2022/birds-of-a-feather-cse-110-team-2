@@ -10,9 +10,9 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_your_classes"
-        android:textColor="@color/black"
+        android:text="@string/edit_your_classes"
         android:textSize="24sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -25,7 +25,6 @@
         android:layout_width="196dp"
         android:layout_height="43dp"
         android:background="@drawable/custom_spinner"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -34,11 +33,34 @@
         app:layout_constraintVertical_bias="0.1" />
 
     <Spinner
+        android:id="@+id/spinner_course_size"
+        android:layout_width="196dp"
+        android:layout_height="43dp"
+        android:background="@drawable/custom_spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_course_number"
+        app:layout_constraintVertical_bias="0.048" />
+
+    <Spinner
+        android:id="@+id/spinner_course_number"
+        android:layout_width="196dp"
+        android:layout_height="43dp"
+        android:background="@drawable/custom_spinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_course_subject"
+        app:layout_constraintVertical_bias="0.046" />
+
+    <Spinner
         android:id="@+id/spinner_course_quarter"
         android:layout_width="196dp"
         android:layout_height="43dp"
         android:background="@drawable/custom_spinner"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -51,7 +73,6 @@
         android:layout_width="196dp"
         android:layout_height="43dp"
         android:background="@drawable/custom_spinner"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -59,88 +80,17 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner_course_quarter"
         app:layout_constraintVertical_bias="0.035" />
 
-    <EditText
-        android:id="@+id/editText_course_number"
-        android:layout_width="189dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginBottom="110dp"
-        android:ems="10"
-        android:hint="Course Number"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Spinner
-        android:id="@+id/spinner_course_size"
-        android:layout_width="196dp"
-        android:layout_height="43dp"
-        android:layout_marginBottom="288dp"
-        android:background="@drawable/custom_spinner"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_added_classes"
-        android:layout_width="289dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_course_size" />
-
     <Button
-        android:id="@+id/btn_finish"
-        android:layout_width="120dp"
-        android:layout_height="51dp"
-        android:layout_marginBottom="72dp"
-        android:backgroundTint="@color/grey"
-        android:onClick="onFinishClicked"
-        android:text="@string/btn_finish"
-        app:cornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_add_another_classes"
-        app:layout_constraintVertical_bias="0.208" />
-
-    <TextView
-        android:id="@+id/tv_add_another_classes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
-        android:text="@string/add_another_class"
-        android:textColor="@color/pinkish"
-        android:onClick="onAddAnotherClassClicked"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_confirm"
-        app:layout_constraintVertical_bias="0.177" />
-
-    <Button
-        android:id="@+id/btn_confirm"
+        android:id="@+id/btn_done"
         android:layout_width="117dp"
         android:layout_height="52dp"
         android:layout_marginBottom="172dp"
         android:backgroundTint="@color/pinkish"
         android:onClick="onAddClicked"
-        android:text="@string/btn_confirm_2"
+        android:text="@string/btn_done"
         android:textAllCaps="false"
         app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
