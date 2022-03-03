@@ -36,11 +36,11 @@ public class AddClassesActivity extends AppCompatActivity {
 
     TextView addedClassesTV;
 
-    String year;
-    String quarter;
-    String subject;
-    String courseNumber;
-    String classSize;
+    private String year;
+    private String quarter;
+    private String subject;
+    private String courseNumber;
+    private String classSize;
 
     Set<String> courses = new HashSet<String>();
     @Override
