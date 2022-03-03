@@ -37,6 +37,14 @@
     <string name="error_message_4">Make sure you either sign in with google or enter your name!</string>
     <string name="close">Close</string>
 
+    <string-array name="filter_mode_array">
+        <item>None</item>
+        <item>Favorites</item>
+        <item>Recent: Fall 2022</item>
+        <item>Recent: Spring 2022</item>
+        <item>Recent: Winter 2022</item>
+    </string-array>
+
     <!-- String array for years -->
     <string-array name="year_array">
         <item>2016</item>
