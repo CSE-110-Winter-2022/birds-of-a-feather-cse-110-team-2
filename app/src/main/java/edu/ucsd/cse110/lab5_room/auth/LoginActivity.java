@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import edu.ucsd.cse110.lab5_room.R;
-import edu.ucsd.cse110.lab5_room.internal.BoFButton;
-import edu.ucsd.cse110.lab5_room.internal.Constants;
-import edu.ucsd.cse110.lab5_room.internal.CustomFilter;
+import edu.ucsd.cse110.lab5_room.ui.BoFButton;
+import edu.ucsd.cse110.lab5_room.Constants;
+import edu.ucsd.cse110.lab5_room.ui.CustomFilter;
 
 public class LoginActivity extends AuthActivity {
     private final String TAG = "LoginActivity";

@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room.internal;
+package edu.ucsd.cse110.lab5_room.ui;
 
 import android.text.InputFilter;
 import android.text.Spanned;

@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room.internal;
+package edu.ucsd.cse110.lab5_room.ui;
 
 import android.content.Context;
 import android.text.Editable;

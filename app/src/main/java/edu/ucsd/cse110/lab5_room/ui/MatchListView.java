@@ -1,8 +1,7 @@
-package edu.ucsd.cse110.lab5_room;
+package edu.ucsd.cse110.lab5_room.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,22 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import edu.ucsd.cse110.lab5_room.internal.MatchList;
-import edu.ucsd.cse110.lab5_room.model.Match;
+import edu.ucsd.cse110.lab5_room.PersonDetailActivity;
+import edu.ucsd.cse110.lab5_room.R;
+import edu.ucsd.cse110.lab5_room.internal.MatchFilterer;
+import edu.ucsd.cse110.lab5_room.model.Student;
 
 public class MatchListView extends FrameLayout {
     // creates an internal RecyclerView
     private final RecyclerView rv;
     private final Context context;
     private MLAdapter adapter;
-
-    SortType filter = SortType.DEFAULT;
-    public enum SortType {
-        DEFAULT,
-        FAVORITES,
-        CLASS_SIZE,
-        CLASS_RECENT
-    }
 
     public MatchListView(Context context) {
         super(context);
@@ -74,28 +67,28 @@ public class MatchListView extends FrameLayout {
     }
 
     // set the StudentListView to list students
-    public void trackStudents(MatchList matches) {
+    public void trackStudents(MatchFilterer matches) {
         this.rv.setLayoutManager(new LinearLayoutManager(context));
-        this.adapter = new MLAdapter(matches, this.filter);
+        this.adapter = new MLAdapter(matches);
         this.rv.setAdapter(this.adapter);
     }
 
-    public void sortBy(SortType s) {
+    public void sortBy(MatchFilterer.SortType s) {
         this.adapter.setFilter(s);
         this.adapter.notifyDataSetChanged();
     }
 
     // MLAdapter creates the list from a data source
     private static class MLAdapter extends RecyclerView.Adapter<MLViewHolder> {
-        private MatchList matches;
-        private SortType filter;
+//        private MatchList matches;
+        private MatchFilterer matches;
+        private MatchFilterer.SortType filter = MatchFilterer.SortType.DEFAULT;
 
-        public MLAdapter(MatchList matches, SortType filter) {
+        public MLAdapter(MatchFilterer matches) {
             this.matches = matches;
-            this.filter   = filter;
         }
 
-        void setFilter(SortType filter) {
+        void setFilter(MatchFilterer.SortType filter) {
             this.filter = filter;
         }
 
@@ -116,7 +109,7 @@ public class MatchListView extends FrameLayout {
 
         @Override
         public int getItemCount() {
-            return this.matches.size();
+            return this.matches.size(this.filter);
         }
     }
 
@@ -125,7 +118,7 @@ public class MatchListView extends FrameLayout {
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         private final TextView nameView;
-        private Match match;
+        private Student match;
         private final ImageView personPictureView;
 
         public MLViewHolder(@NonNull View itemView) {
@@ -135,7 +128,7 @@ public class MatchListView extends FrameLayout {
             itemView.setOnClickListener(this);
         }
 
-        public void setStudent(Match m) {
+        public void setStudent(Student m) {
             this.match = m;
             this.nameView.setText(m.getName());
             Picasso.get().load(match.getPhotoURL()).into(personPictureView);
@@ -145,10 +138,10 @@ public class MatchListView extends FrameLayout {
         public void onClick(View view) {
             Context context = view.getContext();
             //Utilities.showAlert(context, "You clicked on " + this.person.getName() + "!");
-            // TODO fix
+            // TODO fix classes
             Intent intent = new Intent(context, PersonDetailActivity.class);
             intent.putExtra("student_name", this.match.getName());
-            intent.putExtra("student_classes", (Parcelable) this.match.getClasses());
+//            intent.putExtra("student_classes", (Parcelable) this.match.getClasses());
             intent.putExtra("student_photo_url", this.match.getPhotoURL());
             context.startActivity(intent);
         }

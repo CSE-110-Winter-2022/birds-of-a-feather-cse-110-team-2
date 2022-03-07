@@ -7,14 +7,12 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 import edu.ucsd.cse110.lab5_room.MainActivity;
 import edu.ucsd.cse110.lab5_room.R;
-import edu.ucsd.cse110.lab5_room.internal.BoFButton;
-import edu.ucsd.cse110.lab5_room.internal.Constants;
-import edu.ucsd.cse110.lab5_room.internal.CustomFilter;
+import edu.ucsd.cse110.lab5_room.internal.Me;
+import edu.ucsd.cse110.lab5_room.ui.BoFButton;
+import edu.ucsd.cse110.lab5_room.Constants;
+import edu.ucsd.cse110.lab5_room.ui.CustomFilter;
 
 public class CreateProfilePictureActivity extends AuthActivity {
 
@@ -34,17 +32,10 @@ public class CreateProfilePictureActivity extends AuthActivity {
 
     public void onProfilePicNextClicked(View v) {
         // Add all data at once
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(Constants.USER_NAME, getIntent().getStringExtra(Constants.USER_NAME));
-        editor.putString(Constants.USER_PFP, this.url.getText().toString());
-        editor.putStringSet(Constants.USER_COURSES, new HashSet<>(Arrays.asList(getIntent().getStringArrayExtra(Constants.USER_COURSES))));
-        // TODO add classes before this
-        editor.apply();
-
+        Intent launchedWith = getIntent();
+        Me.save(this, launchedWith.getStringExtra(Constants.USER_NAME), this.url.getText().toString());
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(Constants.INTENT_LOGGED_IN, true);
         startActivity(intent);
     }
 }

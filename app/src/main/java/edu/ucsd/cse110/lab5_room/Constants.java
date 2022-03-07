@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room.internal;
+package edu.ucsd.cse110.lab5_room;
 
 import java.util.Arrays;
 import java.util.HashSet;
