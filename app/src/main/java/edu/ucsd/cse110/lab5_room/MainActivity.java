@@ -1,6 +1,7 @@
 package edu.ucsd.cse110.lab5_room;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,15 +9,19 @@ import android.util.ArraySet;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.gson.Gson;
+
 import java.util.Objects;
 import java.util.Set;
 
 import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
 import edu.ucsd.cse110.lab5_room.auth.StudentSaver;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
+import edu.ucsd.cse110.lab5_room.model.Student;
 import edu.ucsd.cse110.lab5_room.model.data.FilterableMatchList;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 import edu.ucsd.cse110.lab5_room.ui.MatchListView;
+import edu.ucsd.cse110.lab5_room.ui.SaveListDialog;
 
 public class MainActivity extends AppCompatActivity {
     private boolean searchActive = true;
@@ -84,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
             searchActive = !searchActive;
 
             // TODO prompt user to save
+            if(!button.getText().equals("Stop")) {
+                DialogFragment saveListDialog = new SaveListDialog();
+                Bundle studentSaveBundle = new Bundle();
+                Gson serializer = new Gson();
+                String studentSave = serializer.toJson(matchList.sort(sort));
+                studentSaveBundle.putString("CurrentSave", studentSave);
+                saveListDialog.setArguments(studentSaveBundle);
+                saveListDialog.show(getSupportFragmentManager(),"Save List");
+            }
         });
 
         updateFilters();

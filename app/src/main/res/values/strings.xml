@@ -41,4 +41,10 @@
     <string name="error_message_3">You have to add at least one class!</string>
     <string name="error_message_4">Make sure you either sign in with google or enter your name!</string>
     <string name="close">Close</string>
+
+    <!-- Strings for save list dialog box -->
+    <string name="save_dialog_title">Save List</string>
+    <string name="save_list_name_hint">Name</string>
+    <string name="save_text">Save</string>
+    <string name="cancel_text">Cancel</string>
 </resources>
