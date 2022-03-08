@@ -12,8 +12,11 @@ public interface StudentDao {
     @Query("select * from student where id=:id")
     Student getById(int id);
 
+    @Query("select exists(select 1 from student where id=1)")
+    boolean loggedIn();
+
     @Insert
-    void insert(Student... students);
+    long insert(Student student);
 
     @Delete
     void delete(Student student);

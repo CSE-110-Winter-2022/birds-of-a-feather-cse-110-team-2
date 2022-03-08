@@ -11,28 +11,29 @@ import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 
 @Entity
-public class Match {
-    @Ignore
-    private AppDatabase db;
+public class RosterEntry {
+//    @Ignore
+//    private AppDatabase db;
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    public int id = 0;
 
     @ColumnInfo(name = "student")
-    private int studentId;
+    private final int studentId;
 
     @ColumnInfo(name = "course")
-    private int courseId;
+    private final int courseId;
 //    private Course course;
 
-    @ColumnInfo(name = "saved_at")
-    private long savedAt;
-
-    public Match(int id, int studentId, int courseId, long savedAt) {
-        this.id = id;
+    public RosterEntry(int id, int studentId, int courseId) {
+        this.id        = id;
         this.studentId = studentId;
         this.courseId  = courseId;
-        this.savedAt = savedAt;
+    }
+
+    @Ignore
+    public RosterEntry(int studentId, int courseId) {
+        this(0, studentId, courseId);
     }
 
     public int getId() {
@@ -45,10 +46,6 @@ public class Match {
 
     public int getCourseId() {
         return this.courseId;
-    }
-
-    public long getSavedAt() {
-        return this.savedAt;
     }
 
     public Student getClassmate(Context c) {

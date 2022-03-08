@@ -1,15 +1,16 @@
 package edu.ucsd.cse110.lab5_room.auth;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.List;
+
 import edu.ucsd.cse110.lab5_room.MainActivity;
 import edu.ucsd.cse110.lab5_room.R;
-import edu.ucsd.cse110.lab5_room.internal.Me;
+import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
+import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.ui.BoFButton;
 import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.ui.CustomFilter;
@@ -31,11 +32,20 @@ public class CreateProfilePictureActivity extends AuthActivity {
     }
 
     public void onProfilePicNextClicked(View v) {
-        // Add all data at once
-        Intent launchedWith = getIntent();
-        Me.save(this, launchedWith.getStringExtra(Constants.USER_NAME), this.url.getText().toString());
-
         Intent intent = new Intent(this, MainActivity.class);
+
+        // Add all data at once
+        String name = getAccumulatedString(Constants.USER_NAME);
+        String pfp  = this.url.getText().toString();
+        List<Course> courses = (List<Course>) getAccumulatedList(Constants.USER_COURSES);
+        boolean mocked = getAccumulatedBool(Constants.IS_MOCKED);
+
+        BoFApplication app = (BoFApplication) getApplication();
+        app.executorService.submit(() -> {
+            StudentSaver.save(this, !mocked, name, pfp, courses);
+        });
+
+        // launch main intent
         startActivity(intent);
     }
 }

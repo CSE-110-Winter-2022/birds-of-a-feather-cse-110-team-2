@@ -16,6 +16,7 @@
     <string name="sign_in_with_google">Sign In with Google</string>
     <string name="or">OR</string>
     <string name="welcome">Welcome!</string>
+    <string name="welcome_mock">Add New Student</string>
     <string name="bluetooth_required">Bluetooth Required</string>
     <string name="bluetooth_prompt">Bluetooth connection is required for this app. Please turn on Bluetooth for your device in your settings.</string>
     <string name="paste_the_url_here">Paste the URL here!</string>
@@ -24,7 +25,7 @@
     <string name="not_now">Enable in Settings</string>
 
     <!-- Strings for add classes activity -->
-    <string name="add_your_classes">Add Your Classes!</string>
+    <string name="add_your_classes">Add Classes</string>
     <string name="edit_your_classes">Edit Class</string>
     <string name="current_added_classes">Added Classes:</string>
     <string name="add_another_class">Add another Class</string>

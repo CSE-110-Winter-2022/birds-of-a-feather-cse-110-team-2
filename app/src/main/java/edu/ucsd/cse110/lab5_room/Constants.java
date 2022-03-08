@@ -29,8 +29,12 @@ public final class Constants {
     public static final int ACTION_ADD = 0;
     public static final int ACTION_REMOVE = 1;
 
+    // the user ID of the app user is always 1
+    public static final int ME_UID = 1;
+
     public static final String USER_NAME    = "name";
     public static final String USER_PFP     = "profileURL";
+    public static final String IS_MOCKED    = "is_mocking";
     public static final String USER_COURSES = "courses";
     public static final String USER_ID      = "studentId";
 }

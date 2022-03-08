@@ -17,9 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.PersonDetailActivity;
 import edu.ucsd.cse110.lab5_room.R;
-import edu.ucsd.cse110.lab5_room.internal.MatchFilterer;
+import edu.ucsd.cse110.lab5_room.model.data.FilterableMatchList;
 import edu.ucsd.cse110.lab5_room.model.Student;
 
 public class MatchListView extends FrameLayout {
@@ -49,7 +50,10 @@ public class MatchListView extends FrameLayout {
 
     private void init() {
         // make sure the RecyclerView actually shows up
+        this.rv.setLayoutManager(new LinearLayoutManager(context));
         this.addView(this.rv);
+        this.adapter = new MLAdapter();
+        this.rv.setAdapter(this.adapter);
     }
 
     private RecyclerView createRecyclerView(Context context, @Nullable AttributeSet attrs) {
@@ -66,30 +70,21 @@ public class MatchListView extends FrameLayout {
         return null;
     }
 
-    // set the StudentListView to list students
-    public void trackStudents(MatchFilterer matches) {
-        this.rv.setLayoutManager(new LinearLayoutManager(context));
-        this.adapter = new MLAdapter(matches);
-        this.rv.setAdapter(this.adapter);
+    public void updateList(Student[] students) {
+        this.adapter.setStudents(students);
     }
 
-    public void sortBy(MatchFilterer.SortType s) {
-        this.adapter.setFilter(s);
+    public void updateList() {
         this.adapter.notifyDataSetChanged();
     }
 
     // MLAdapter creates the list from a data source
     private static class MLAdapter extends RecyclerView.Adapter<MLViewHolder> {
-//        private MatchList matches;
-        private MatchFilterer matches;
-        private MatchFilterer.SortType filter = MatchFilterer.SortType.DEFAULT;
+        private Student[] students;
 
-        public MLAdapter(MatchFilterer matches) {
-            this.matches = matches;
-        }
-
-        void setFilter(MatchFilterer.SortType filter) {
-            this.filter = filter;
+        public void setStudents(Student[] students) {
+            this.students = students;
+            notifyDataSetChanged();
         }
 
         @NonNull
@@ -104,12 +99,12 @@ public class MatchListView extends FrameLayout {
 
         @Override
         public void onBindViewHolder(@NonNull MLViewHolder holder, int position) {
-            holder.setStudent(this.matches.get(position, this.filter));
+            holder.setStudent(students[position]);
         }
 
         @Override
         public int getItemCount() {
-            return this.matches.size(this.filter);
+            return this.students.length;
         }
     }
 
@@ -137,12 +132,12 @@ public class MatchListView extends FrameLayout {
         @Override
         public void onClick(View view) {
             Context context = view.getContext();
-            //Utilities.showAlert(context, "You clicked on " + this.person.getName() + "!");
-            // TODO fix classes
+
             Intent intent = new Intent(context, PersonDetailActivity.class);
-            intent.putExtra("student_name", this.match.getName());
+            intent.putExtra(Constants.USER_ID, this.match.getId());
+//            intent.putExtra("student_name", this.match.getName());
 //            intent.putExtra("student_classes", (Parcelable) this.match.getClasses());
-            intent.putExtra("student_photo_url", this.match.getPhotoURL());
+//            intent.putExtra("student_photo_url", this.match.getPhotoURL());
             context.startActivity(intent);
         }
     }

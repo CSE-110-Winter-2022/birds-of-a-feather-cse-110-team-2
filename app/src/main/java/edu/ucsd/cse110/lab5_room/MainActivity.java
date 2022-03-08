@@ -10,14 +10,15 @@ import android.widget.Button;
 import java.util.Objects;
 
 import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
+import edu.ucsd.cse110.lab5_room.auth.StudentSaver;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
-import edu.ucsd.cse110.lab5_room.internal.MatchFilterer;
-import edu.ucsd.cse110.lab5_room.internal.Me;
+import edu.ucsd.cse110.lab5_room.model.data.FilterableMatchList;
+import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
+import edu.ucsd.cse110.lab5_room.ui.MatchListView;
 
 public class MainActivity extends AppCompatActivity {
     private boolean searchActive = true;
 
-    Button filterButton;
     Button viewSaved;
 
 //    protected Student[] studentData = {
@@ -37,19 +38,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle(R.string.app_title);
 
-        // hide action bar
-        Objects.requireNonNull(getSupportActionBar()).hide();
-
-        filterButton = findViewById(R.id.btn_filter);
-        viewSaved    = findViewById(R.id.btn_saved);
-
+        // redirect to login if no user yet
         BoFApplication app = (BoFApplication) getApplication();
+        AppDatabase db = AppDatabase.singleton(this);
         app.executorService.submit(() -> {
-            if (!Me.loggedIn(this)) {
+            if (!db.studentDao().loggedIn()) {
                 Intent i = new Intent(this, LoginActivity.class);
                 runOnUiThread(() -> startActivity(i));
             }
         });
+
+        // hide action bar
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
+        // TODO implement filtering
+        Button filterButton = findViewById(R.id.btn_filter);
+        viewSaved    = findViewById(R.id.btn_saved);
+
+        // button to add a new mocked user
+        Button mockButton = findViewById(R.id.btn_mock);
+        mockButton.setOnClickListener(view -> {
+            Intent i = new Intent(this, LoginActivity.class);
+            i.putExtra(Constants.IS_MOCKED, true);
+            startActivity(i);
+        });
+
+        FilterableMatchList matchList = StudentSaver.getMatches(this);
+        MatchListView studentList = findViewById(R.id.student_list);
+        studentList.updateList(matchList.sort(FilterableMatchList.SortType.DEFAULT));
+
 
 //        MatchFilterer matches = new MatchFilterer(this);
 
@@ -68,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
             button.setText((searchActive) ? "Stop" : "Start");
             viewSaved.setVisibility((searchActive) ? View.INVISIBLE : View.VISIBLE);
             searchActive = !searchActive;
+
+            // TODO prompt user to save
         });
     }
 }

@@ -2,6 +2,7 @@ package edu.ucsd.cse110.lab5_room.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Set;
@@ -21,9 +22,9 @@ public class Student implements IStudent {
 //    private final Set<Course> courses;
 
     public Student(int id, String name, String photoURL/*, Set<Course> courses*/) {
-        this.id = id;
         this.name = name;
         this.photoURL = photoURL;
+        this.id = id;
 //        this.courses = courses;
     }
 

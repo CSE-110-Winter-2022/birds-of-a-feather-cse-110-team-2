@@ -1,11 +1,8 @@
 package edu.ucsd.cse110.lab5_room.auth;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,32 +10,33 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
-import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.Constants;
+import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 import edu.ucsd.cse110.lab5_room.model.db.CourseDao;
 
-public class AddClassesActivity extends AppCompatActivity {
+public class AddClassesActivity extends AuthActivity {
     EditText numberET;
     EditText yearET;
     TextView displayTV;
 
-//    private int year;
     private Course.Quarter quarter;
     private Course.Department department;
-//    private int courseNumber;
     private Course.Size size;
 
     boolean hasAdded = false;
 
     BoFApplication app;
     CourseDao courses;
+    Set<Course> courseList = Collections.synchronizedSet(new HashSet<>());
 
-//    Set<String> courses = new HashSet<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +58,6 @@ public class AddClassesActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 quarter = (Course.Quarter) adapterView.getItemAtPosition(i);
-//                Toast.makeText(adapterView.getContext(),quarter + " selected!" , Toast.LENGTH_SHORT);
             }
 
             @Override
@@ -80,8 +77,6 @@ public class AddClassesActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 department = (Course.Department) adapterView.getItemAtPosition(i);
-//                subject = adapterView.getItemAtPosition(i).toString();
-//                Toast.makeText(adapterView.getContext(),subject + " selected!" , Toast.LENGTH_SHORT);
             }
 
             @Override
@@ -109,9 +104,10 @@ public class AddClassesActivity extends AppCompatActivity {
             }
         });
 
-        displayTV = findViewById(R.id.tv_added_classes);
+        // make sure we can access the edittexts and textviews
         numberET  = findViewById(R.id.editText_course_number);
         yearET    = findViewById(R.id.editText_course_year);
+        displayTV = findViewById(R.id.tv_added_classes);
     }
 
     public void onAddClicked(View view) {
@@ -129,9 +125,13 @@ public class AddClassesActivity extends AppCompatActivity {
             int num  = Integer.decode(numberET.getText().toString());
             int year = Integer.decode(yearET.getText().toString());
 
-            Course course = new Course(department, num, size, quarter, year);
             app.executorService.submit(() -> {
-                if (courses.hasTaken(course)) {
+                Course course = courses.getOrCreate(department, num, size, quarter, year);
+                if (!courseList.contains(course)) {
+                    courseList.add(course);
+                    updateDTV(course);
+                }
+                else {
                     // alert user if class has already been entered
                     runOnUiThread(() -> {
                         AlertDialog errDialog = new AlertDialog.Builder(AddClassesActivity.this)
@@ -142,21 +142,16 @@ public class AddClassesActivity extends AppCompatActivity {
                         errDialog.show();
                     });
                 }
-                else {
-                    courses.insert(course);
-                    runOnUiThread(() -> {
-                        String classesViz = new StringBuilder()
-                                .append(displayTV.getText())
-                                .append((hasAdded) ? ", " : "")
-                                .append(course)
-                                .toString();
-                        displayTV.setText(classesViz);
-                        hasAdded = true;
-                    });
-                }
             });
-
         }
+    }
+
+    private void updateDTV(Course c) {
+        runOnUiThread(() -> {
+            String classesViz = displayTV.getText() + ((hasAdded) ? ", " : "") + c;
+            displayTV.setText(classesViz);
+            hasAdded = true;
+        });
     }
 
     public void onFinishClicked(View view) {
@@ -170,14 +165,8 @@ public class AddClassesActivity extends AppCompatActivity {
             errDialog.show();
         }
         else {
-            Intent pfpIntent = new Intent(AddClassesActivity.this, CreateProfilePictureActivity.class);
-            pfpIntent.putExtra(Constants.USER_NAME, getIntent().getStringExtra(Constants.USER_NAME));
-//            pfpIntent.putExtra(Constants.USER_COURSES, courses.toArray(new ArrayList<>(courses).toArray(new String[0])));
-            startActivity(pfpIntent);
+            accumulateList(Constants.USER_COURSES, new ArrayList<>(courseList));
+            moveOn(CreateProfilePictureActivity.class);
         }
     }
-
-//    public void onAddAnotherClassClicked(View view) {
-//        Log.d("clicked", "Viewing all classes");
-//    }
 }

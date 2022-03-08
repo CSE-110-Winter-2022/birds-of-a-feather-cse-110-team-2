@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import edu.ucsd.cse110.lab5_room.model.*;
 
-@Database(entities = {Student.class, Match.class, Course.class}, version = 1)
+@Database(entities = {Student.class, RosterEntry.class, Course.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase db;
 
@@ -22,6 +22,6 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract StudentDao studentDao();
-    public abstract MatchDao   matchDao();
+    public abstract RosterDao  rosterDao();
     public abstract CourseDao  courseDao();
 }

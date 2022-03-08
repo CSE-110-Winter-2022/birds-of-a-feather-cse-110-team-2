@@ -1,8 +1,7 @@
-package edu.ucsd.cse110.lab5_room.internal;
+package edu.ucsd.cse110.lab5_room.model.data;
 
 import android.content.Context;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -12,12 +11,12 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import edu.ucsd.cse110.lab5_room.model.Course;
-import edu.ucsd.cse110.lab5_room.model.Match;
+import edu.ucsd.cse110.lab5_room.model.RosterEntry;
 import edu.ucsd.cse110.lab5_room.model.Student;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
-import edu.ucsd.cse110.lab5_room.model.db.MatchDao;
+import edu.ucsd.cse110.lab5_room.model.db.RosterDao;
 
-public class MatchFilterer {
+public class FilterableMatchList {
     public enum SortType {
         DEFAULT,
         FAVORITES,
@@ -25,7 +24,7 @@ public class MatchFilterer {
         CLASS_RECENT
     }
 
-    private final List<Match> matches;
+    private final List<RosterEntry> rosterEntries;
     private Set<Student> classmates;
     private Set<Student> favorites;
     private SortedSet<Student> sizeSort;
@@ -34,16 +33,16 @@ public class MatchFilterer {
     private Map<Student, Double>  sizeScores;
     private Map<Student, Integer> timeScores;
 
-    public MatchFilterer(Context c, List<Match> matches) {
-        this.matches = matches;
+    public FilterableMatchList(Context c, List<RosterEntry> rosterEntries) {
+        this.rosterEntries = rosterEntries;
         init(c);
     }
 
-    public MatchFilterer(Context c, long date) {
-        MatchDao matchDao = AppDatabase.singleton(c).matchDao();
-        this.matches = matchDao.matchesFrom(date);
-        init(c);
-    }
+//    public FilterableMatchList(Context c, long date) {
+//        RosterDao rosterDao = AppDatabase.singleton(c).rosterDao();
+//        this.rosterEntries = rosterDao.matchesFrom(date);
+//        init(c);
+//    }
 
     private void init(Context c) {
         this.classmates = new LinkedHashSet<>();
@@ -68,22 +67,25 @@ public class MatchFilterer {
         });
 
         // find out where in each array students belong
-        for (Match m : matches) {
-            // TODO add students to favorites if match is a favorite
-            Student classmate = m.getClassmate(c);
-            Course  course    = m.getCourse(c);
-
-            this.classmates.add(classmate);
-
-            int timeWeight = 5 - Course.quartersAgo(course.getQuarter(), course.getYear());
-            if (timeWeight < 1)  timeWeight = 1;
-
-            addMatch(classmate, course.getSize().weight(), timeWeight);
-        }
+        for (RosterEntry m : rosterEntries)
+            add(c, m);
 
         // now add all students
         this.sizeSort.addAll(this.classmates);
         this.timeSort.addAll(this.classmates);
+    }
+
+    public void add(Context c, RosterEntry m) {
+        // TODO add students to favorites if match is a favorite
+        Student classmate = m.getClassmate(c);
+        Course  course    = m.getCourse(c);
+
+        this.classmates.add(classmate);
+
+        int timeWeight = 5 - Course.quartersAgo(course.getQuarter(), course.getYear());
+        if (timeWeight < 1)  timeWeight = 1;
+
+        addMatch(classmate, course.getSize().weight(), timeWeight);
     }
 
     private void addMatch(Student student, double sizeWeight, int timeWeight) {
@@ -100,25 +102,21 @@ public class MatchFilterer {
         }
     }
 
-    public Student get(int pos, SortType sort) {
+    public Student[] sort(SortType sort) {
         switch (sort) {
             case DEFAULT:
-                return this.classmates.toArray(new Student[0])[pos];
+                return this.classmates.toArray(new Student[0]);
 
             case FAVORITES:
-                return this.favorites.toArray(new Student[0])[pos];
+                return this.favorites.toArray(new Student[0]);
 
             case CLASS_SIZE:
-                return this.sizeSort.toArray(new Student[0])[pos];
+                return this.sizeSort.toArray(new Student[0]);
 
             case CLASS_RECENT:
-                return this.timeSort.toArray(new Student[0])[pos];
+                return this.timeSort.toArray(new Student[0]);
         }
 
         return null;
-    }
-
-    public int size(SortType sort) {
-        return (sort == SortType.FAVORITES) ? this.favorites.size() : this.classmates.size();
     }
 }
