@@ -34,37 +34,37 @@ public class Course implements Parcelable {
             public double weight() { return 1; }
 
             @NonNull
-            public String toString() { return "Tiny"; }
+            public String toString() { return "Tiny (0-40)"; }
         },
         SMALL {
             public double weight() { return 0.33; }
 
             @NonNull
-            public String toString() { return "Small"; }
+            public String toString() { return "Small (41-75)"; }
         },
         MEDIUM {
             public double weight() { return 0.18; }
 
             @NonNull
-            public String toString() { return "Medium"; }
+            public String toString() { return "Medium (76-150)"; }
         },
         LARGE {
             public double weight() { return 0.10; }
 
             @NonNull
-            public String toString() { return "Large"; }
+            public String toString() { return "Large (151-250)"; }
         },
         HUGE {
             public double weight() { return 0.08; }
 
             @NonNull
-            public String toString() { return "Huge"; }
+            public String toString() { return "Huge (251-400)"; }
         },
         GIGANTIC {
             public double weight() { return 0.03; }
 
             @NonNull
-            public String toString() { return "Gigantic"; }
+            public String toString() { return "Gigantic (400+)"; }
         };
 
         public abstract double weight();

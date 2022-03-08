@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.ArraySet;
 import android.view.View;
 import android.widget.Button;
 
 import java.util.Objects;
+import java.util.Set;
 
 import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
 import edu.ucsd.cse110.lab5_room.auth.StudentSaver;
@@ -27,10 +29,11 @@ public class MainActivity extends AppCompatActivity {
 //            new DummyStudent("Carl", "https://www.bible-bridge.com/wp-content/uploads/favicon-256x256.png?x59487", new String[]{"CSE 101"}, true)
 //    };
 
-    // dummy courses
-//    Course cse110 = new Course(Course.Department.CSE, 110, Course.Size.LARGE, 6);
-//    Course cse101 = new Course(Course.Department.CSE, 101, Course.Size.GIGANTIC, 2);
-//    Course ece080 = new Course(Course.Department.ECE, 80, Course.Size.TINY, 0);
+    private static int currState = 0;
+    private static final FilterableMatchList.SortType[] filterStates = FilterableMatchList.SortType.values();
+    private static FilterableMatchList.SortType sort = filterStates[currState];
+
+    Set<Runnable> filterObservers = new ArraySet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +47,16 @@ public class MainActivity extends AppCompatActivity {
         app.executorService.submit(() -> {
             if (!db.studentDao().loggedIn()) {
                 Intent i = new Intent(this, LoginActivity.class);
-                runOnUiThread(() -> startActivity(i));
+                runOnUiThread(() -> {
+                    startActivity(i);
+                    finish();
+                });
             }
         });
 
         // hide action bar
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        // TODO implement filtering
-        Button filterButton = findViewById(R.id.btn_filter);
         viewSaved    = findViewById(R.id.btn_saved);
 
         // button to add a new mocked user
@@ -63,22 +67,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        // get matches
         FilterableMatchList matchList = StudentSaver.getMatches(this);
         MatchListView studentList = findViewById(R.id.student_list);
-        studentList.updateList(matchList.sort(FilterableMatchList.SortType.DEFAULT));
+        registerFilterObserver(() -> studentList.updateList(matchList.sort(sort)));
 
-
-//        MatchFilterer matches = new MatchFilterer(this);
-
-//        MatchList matches = new MatchList(Arrays.asList(new Match[]{
-//                new Student("Joe", "f", new HashSet<>(Arrays.asList(cse110, ece080))),
-//                new Student("Noah", "f", new HashSet<>(Collections.singletonList(cse101)))
-//        }));
-//        MatchListView studentList = findViewById(R.id.student_list);
-//        studentList.trackStudents(matches);
-//        studentList.sortBy(MatchListView.SortType.CLASS_SIZE);
-
-        //TODO: add start/stop button here to process student data to a new array
+        // allow button to toggle filtering
+        Button filterButton = findViewById(R.id.btn_filter);
+        filterButton.setOnClickListener(view -> advanceFilter());
+        registerFilterObserver(() -> filterButton.setText(sort.toString()));
 
         final Button button = findViewById(R.id.start);
         button.setOnClickListener(v -> {
@@ -88,5 +85,22 @@ public class MainActivity extends AppCompatActivity {
 
             // TODO prompt user to save
         });
+
+        updateFilters();
+    }
+
+    private void registerFilterObserver(Runnable r) {
+        filterObservers.add(r);
+    }
+
+    private void updateFilters() {
+        for (Runnable r : filterObservers)
+            r.run();
+    }
+
+    private void advanceFilter() {
+        currState = (currState + 1) % filterStates.length;
+        sort = filterStates[currState];
+        updateFilters();
     }
 }

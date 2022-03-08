@@ -30,7 +30,7 @@ public class StudentSaver {
 
         // first, insert student into Students table, with UID 1 if me or otherwise unset,
         //   and save ID
-        Student s = new Student((me ? Constants.ME_UID : 0), name, pfp);
+        Student s = new Student((me ? Constants.ME_UID : 0), name, pfp, false);
         int sid   = (int) db.studentDao().insert(s);
 
         // now add a roster entry for every course this student has taken

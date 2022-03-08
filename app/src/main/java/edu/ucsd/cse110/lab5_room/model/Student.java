@@ -18,33 +18,29 @@ public class Student implements IStudent {
     @ColumnInfo(name = "pfp")
     private final String photoURL;
 
-//    @ColumnInfo(name = "courses")
-//    private final Set<Course> courses;
+    @ColumnInfo
+    private final boolean favorite;
 
-    public Student(int id, String name, String photoURL/*, Set<Course> courses*/) {
+    public Student(int id, String name, String photoURL, boolean favorite) {
         this.name = name;
         this.photoURL = photoURL;
         this.id = id;
-//        this.courses = courses;
+        this.favorite = favorite;
     }
 
-//    @Override
     public int getId() {
         return this.id;
     }
 
-//    @Override
     public String getName() {
         return name;
     }
 
-//    @Override
     public String getPhotoURL() {
-        return photoURL;
+        return this.photoURL;
     }
 
-//    @Override
-//    public Set<Course> getClasses() {
-//        return this.courses;
-//    }
+    public boolean getFavorite() {
+        return this.favorite;
+    }
 }
