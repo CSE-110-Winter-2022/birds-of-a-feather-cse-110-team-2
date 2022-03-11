@@ -1,16 +1,19 @@
 package edu.ucsd.cse110.lab5_room.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.Set;
+import java.util.UUID;
 
 @Entity
-public class Student implements IStudent {
-    @PrimaryKey(autoGenerate = true)
-    private final int id;
+public class Student {
+    @PrimaryKey @NonNull
+    UUID id;
+
+    @ColumnInfo(name = "is_me")
+    private final boolean isMe;
 
     @ColumnInfo(name = "name")
     private final String name;
@@ -18,17 +21,23 @@ public class Student implements IStudent {
     @ColumnInfo(name = "pfp")
     private final String photoURL;
 
-    @ColumnInfo
+    @ColumnInfo(name = "favorite")
     private final boolean favorite;
 
-    public Student(int id, String name, String photoURL, boolean favorite) {
+    public Student(@NonNull UUID id, boolean isMe, String name, String photoURL, boolean favorite) {
+        this.id = id;
+        this.isMe = isMe;
         this.name = name;
         this.photoURL = photoURL;
-        this.id = id;
         this.favorite = favorite;
     }
 
-    public int getId() {
+    public boolean getIsMe() {
+        return this.isMe;
+    }
+
+    @NonNull
+    public UUID getId() {
         return this.id;
     }
 

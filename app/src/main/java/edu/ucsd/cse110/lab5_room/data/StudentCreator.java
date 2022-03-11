@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.UUID;
 
 import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.model.Course;
@@ -22,7 +23,7 @@ public class StudentCreator {
             matches = new FilterableMatchList(c, new ArrayList<>());
     }
 
-    public static void create(Context c, boolean me, String name, String pfp, Collection<Course> courses) {
+    public static void create(Context c, UUID uuid, boolean me, String name, String pfp, Collection<Course> courses) {
         init(c);
 
         AppDatabase db = AppDatabase.singleton(c);
@@ -30,7 +31,7 @@ public class StudentCreator {
 
         // first, insert student into Students table, with UID 1 if me or otherwise unset,
         //   and save ID
-        Student s = new Student((me ? Constants.ME_UID : 0), name, pfp, false);
+        Student s = new Student(uuid, me, name, pfp, false);
         int sid   = (int) db.studentDao().insert(s);
 
         // now add a roster entry for every course this student has taken
@@ -41,7 +42,7 @@ public class StudentCreator {
             entries[i] = new RosterEntry(sid, curr.getId());
 
             if (!me) {
-                if (roster.amEnrolled(curr))
+                if (roster.amEnrolled(c, curr))
                     matches.add(c, entries[i]);
             }
         }

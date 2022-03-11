@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.util.List;
+import java.util.UUID;
 
 import edu.ucsd.cse110.lab5_room.MainActivity;
 import edu.ucsd.cse110.lab5_room.R;
@@ -43,7 +44,7 @@ public class CreateProfilePictureActivity extends AuthActivity {
 
         BoFApplication app = (BoFApplication) getApplication();
         app.executorService.submit(() -> {
-            StudentCreator.create(this, !mocked, name, pfp, courses);
+            StudentCreator.create(this, UUID.randomUUID(), !mocked, name, pfp, courses);
         });
 
         // launch main intent
