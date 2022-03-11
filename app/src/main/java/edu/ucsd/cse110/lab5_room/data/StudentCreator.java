@@ -14,6 +14,7 @@ import edu.ucsd.cse110.lab5_room.model.Student;
 import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 import edu.ucsd.cse110.lab5_room.model.db.RosterDao;
+import edu.ucsd.cse110.lab5_room.model.db.StudentDao;
 
 public class StudentCreator {
     private static FilterableMatchList matches;
@@ -31,15 +32,14 @@ public class StudentCreator {
 
         // first, insert student into Students table, with UID 1 if me or otherwise unset,
         //   and save ID
-        Student s = new Student(uuid, me, name, pfp, false);
-        int sid   = (int) db.studentDao().insert(s);
+        db.studentDao().insert(new Student(uuid, me, name, pfp, false));
 
         // now add a roster entry for every course this student has taken
         RosterEntry[] entries = new RosterEntry[courses.size()];
         Iterator<Course> coursesIt = courses.iterator();
         for (int i = 0; i < courses.size(); i++) {
             Course curr = coursesIt.next();
-            entries[i] = new RosterEntry(sid, curr.getId());
+            entries[i] = new RosterEntry(uuid, curr.getId());
 
             if (!me) {
                 if (roster.amEnrolled(c, curr))

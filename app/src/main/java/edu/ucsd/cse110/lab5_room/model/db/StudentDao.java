@@ -12,7 +12,7 @@ import edu.ucsd.cse110.lab5_room.model.Student;
 @Dao
 public interface StudentDao {
     @Query("select * from student where id=:id")
-    Student getById(int id);
+    Student getById(UUID id);
 
     @Query("select exists(select 1 from student where is_me=1)")
     boolean loggedIn();

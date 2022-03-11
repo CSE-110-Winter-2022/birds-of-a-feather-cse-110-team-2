@@ -8,6 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 
@@ -17,19 +18,19 @@ public class RosterEntry implements Serializable {
     public int id = 0;
 
     @ColumnInfo(name = "student")
-    private final int studentId;
+    private final UUID studentId;
 
     @ColumnInfo(name = "course")
     private final int courseId;
 
-    public RosterEntry(int id, int studentId, int courseId) {
+    public RosterEntry(int id, UUID studentId, int courseId) {
         this.id        = id;
         this.studentId = studentId;
         this.courseId  = courseId;
     }
 
     @Ignore
-    public RosterEntry(int studentId, int courseId) {
+    public RosterEntry(UUID studentId, int courseId) {
         this(0, studentId, courseId);
     }
 
@@ -37,7 +38,7 @@ public class RosterEntry implements Serializable {
         return this.id;
     }
 
-    public int getStudentId() {
+    public UUID getStudentId() {
         return this.studentId;
     }
 
