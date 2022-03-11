@@ -2,6 +2,7 @@ package edu.ucsd.cse110.lab5_room.auth;
 
 import androidx.appcompat.app.AlertDialog;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,60 +50,30 @@ public class AddClassesActivity extends AuthActivity {
 
         // Set up quarter spinner
         Spinner quarterSpinner = findViewById(R.id.spinner_course_quarter);
-        quarterSpinner.setAdapter(new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_dropdown_item,
-                Course.Quarter.values()
-        ));
-        quarterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                quarter = (Course.Quarter) adapterView.getItemAtPosition(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                quarter = null;
-            }
-        });
+        EnumAdapter<Course.Quarter> quarterAdapter = new EnumAdapter<>(
+                Course.Quarter.class,
+                (chosen) -> quarter = chosen
+        );
+        quarterSpinner.setAdapter(quarterAdapter.toArrayAdapter(this));
+        quarterSpinner.setOnItemSelectedListener(quarterAdapter);
 
         // set up department spinner
-        Spinner subjectSpinner = findViewById(R.id.spinner_course_subject);
-        subjectSpinner.setAdapter(new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_dropdown_item,
-                Course.Department.values()
-        ));
-        subjectSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                department = (Course.Department) adapterView.getItemAtPosition(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                department = null;
-            }
-        });
+        Spinner departmentSpinner = findViewById(R.id.spinner_course_subject);
+        EnumAdapter<Course.Department> departmentAdapter = new EnumAdapter<>(
+                Course.Department.class,
+                (chosen) -> department = chosen
+        );
+        departmentSpinner.setAdapter(departmentAdapter.toArrayAdapter(this));
+        departmentSpinner.setOnItemSelectedListener(departmentAdapter);
 
         // set up size spinner
-        Spinner classSizeSpinner = findViewById(R.id.spinner_course_size);
-        classSizeSpinner.setAdapter(new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_dropdown_item,
-                Course.Size.values()
-        ));
-        classSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                size = (Course.Size) adapterView.getItemAtPosition(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                size = null;
-            }
-        });
+        Spinner sizeSpinner = findViewById(R.id.spinner_course_size);
+        EnumAdapter<Course.Size> sizeAdapter = new EnumAdapter<>(
+                Course.Size.class,
+                (chosen) -> size = chosen
+        );
+        sizeSpinner.setAdapter(sizeAdapter.toArrayAdapter(this));
+        sizeSpinner.setOnItemSelectedListener(sizeAdapter);
 
         // make sure we can access the edittexts and textviews
         numberET  = findViewById(R.id.editText_course_number);
@@ -122,6 +93,7 @@ public class AddClassesActivity extends AuthActivity {
             errDialog.show();
         }
         else {
+            // otherwise, save class to user
             int num  = Integer.decode(numberET.getText().toString());
             int year = Integer.decode(yearET.getText().toString());
 
@@ -167,6 +139,37 @@ public class AddClassesActivity extends AuthActivity {
         else {
             accumulateList(Constants.USER_COURSES, new ArrayList<>(courseList));
             moveOn(CreateProfilePictureActivity.class);
+        }
+    }
+
+    // make our adapters for our enums generic
+    private static class EnumAdapter<E extends Enum<E>> implements AdapterView.OnItemSelectedListener {
+        private final E[] states;
+        private final Callback<E> callback;
+
+        public interface Callback<E> {
+            void update(E chosen);
+        }
+
+        public EnumAdapter(Class<E> eClass, Callback<E> callback) {
+            this.states   = eClass.getEnumConstants();
+            this.callback = callback;
+        }
+
+        public ArrayAdapter<E> toArrayAdapter(Context c) {
+            return new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, states);
+        }
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            // the warning about an unchecked cast is not a real issue, just stems from generics
+            // noinspection unchecked
+            callback.update((E) adapterView.getItemAtPosition(i));
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+            callback.update(null);
         }
     }
 }

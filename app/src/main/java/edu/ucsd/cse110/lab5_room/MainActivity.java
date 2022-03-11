@@ -6,39 +6,33 @@ import androidx.fragment.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArraySet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.gson.Gson;
-
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
 
 import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
-import edu.ucsd.cse110.lab5_room.auth.StudentSaver;
+import edu.ucsd.cse110.lab5_room.data.StudentCreator;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
-import edu.ucsd.cse110.lab5_room.model.Student;
-import edu.ucsd.cse110.lab5_room.model.data.FilterableMatchList;
+import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 import edu.ucsd.cse110.lab5_room.ui.MatchListView;
 import edu.ucsd.cse110.lab5_room.ui.SaveListDialog;
+import edu.ucsd.cse110.lab5_room.ui.SavedSelectDialog;
 
 public class MainActivity extends AppCompatActivity {
-    private boolean searchActive = true;
-
-    Button viewSaved;
-
-//    protected Student[] studentData = {
-//            new DummyStudent("Alice", "https://www.wallpapers13.com/wp-content/uploads/2015/12/Nature-Lake-Bled.-Desktop-background-image-915x515.jpg", new String[]{"CSE 11", "CSE 122"}, true),
-//            new DummyStudent("Bob", "bob.net", new String[]{"ENG 3"}, false),
-//            new DummyStudent("Carl", "https://www.bible-bridge.com/wp-content/uploads/favicon-256x256.png?x59487", new String[]{"CSE 101"}, true)
-//    };
+    private static boolean searchActive = true;
 
     private static int currState = 0;
     private static final FilterableMatchList.SortType[] filterStates = FilterableMatchList.SortType.values();
     private static FilterableMatchList.SortType sort = filterStates[currState];
 
-    Set<Runnable> filterObservers = new ArraySet<>();
+    private static final Set<Runnable> filterObservers = new ArraySet<>();
+    private static FilterableMatchList matchList;
+    private static MatchListView studentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
         // hide action bar
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        viewSaved    = findViewById(R.id.btn_saved);
-
         // button to add a new mocked user
         Button mockButton = findViewById(R.id.btn_mock);
         mockButton.setOnClickListener(view -> {
@@ -73,31 +65,41 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // get matches
-        FilterableMatchList matchList = StudentSaver.getMatches(this);
-        MatchListView studentList = findViewById(R.id.student_list);
+        matchList = StudentCreator.getMatches(this);
+        studentList = findViewById(R.id.student_list);
         registerFilterObserver(() -> studentList.updateList(matchList.sort(sort)));
 
-        // allow button to toggle filtering
+        // filter button toggles filter state
         Button filterButton = findViewById(R.id.btn_filter);
         filterButton.setOnClickListener(view -> advanceFilter());
         registerFilterObserver(() -> filterButton.setText(sort.toString()));
 
-        final Button button = findViewById(R.id.start);
-        button.setOnClickListener(v -> {
-            button.setText((searchActive) ? "Stop" : "Start");
-            viewSaved.setVisibility((searchActive) ? View.INVISIBLE : View.VISIBLE);
-            searchActive = !searchActive;
+        // view saved button creates dialog
+        Button viewSaved = findViewById(R.id.btn_saved);
+        viewSaved.setOnClickListener(view -> {
+            DialogFragment viewSavedDialog = new SavedSelectDialog((chosen) -> {
+                matchList = chosen;
+                studentList.updateList(chosen.sort(sort));
+            });
+            viewSavedDialog.show(getSupportFragmentManager(), "Saved Lists");
+        });
 
-            // TODO prompt user to save
-            if(!button.getText().equals("Stop")) {
-                DialogFragment saveListDialog = new SaveListDialog();
-                Bundle studentSaveBundle = new Bundle();
-                Gson serializer = new Gson();
-                String studentSave = serializer.toJson(matchList.sort(sort));
-                studentSaveBundle.putString("CurrentSave", studentSave);
-                saveListDialog.setArguments(studentSaveBundle);
-                saveListDialog.show(getSupportFragmentManager(),"Save List");
+        // change internal search state with search button
+        // TODO move this to a new class and implement Nearby
+        final Button searchButton = findViewById(R.id.start);
+        searchButton.setOnClickListener(v -> {
+            // update UI
+            searchButton.setText((searchActive) ? "Stop" : "Start");
+            viewSaved.setVisibility((searchActive) ? View.INVISIBLE : View.VISIBLE);
+
+            // prompt user to save when stop button pressed
+            if (!searchActive) {
+                DialogFragment saveListDialog = new SaveListDialog(matchList);
+                saveListDialog.show(getSupportFragmentManager(), "Save List");
             }
+
+            // stop search
+            searchActive = !searchActive;
         });
 
         updateFilters();

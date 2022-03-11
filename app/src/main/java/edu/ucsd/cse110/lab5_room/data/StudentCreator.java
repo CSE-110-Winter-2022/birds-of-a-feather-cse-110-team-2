@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room.auth;
+package edu.ucsd.cse110.lab5_room.data;
 
 import android.content.Context;
 
@@ -10,11 +10,11 @@ import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.model.RosterEntry;
 import edu.ucsd.cse110.lab5_room.model.Student;
-import edu.ucsd.cse110.lab5_room.model.data.FilterableMatchList;
+import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 import edu.ucsd.cse110.lab5_room.model.db.RosterDao;
 
-public class StudentSaver {
+public class StudentCreator {
     private static FilterableMatchList matches;
 
     public static void init(Context c) {
@@ -22,7 +22,7 @@ public class StudentSaver {
             matches = new FilterableMatchList(c, new ArrayList<>());
     }
 
-    public static void save(Context c, boolean me, String name, String pfp, Collection<Course> courses) {
+    public static void create(Context c, boolean me, String name, String pfp, Collection<Course> courses) {
         init(c);
 
         AppDatabase db = AppDatabase.singleton(c);

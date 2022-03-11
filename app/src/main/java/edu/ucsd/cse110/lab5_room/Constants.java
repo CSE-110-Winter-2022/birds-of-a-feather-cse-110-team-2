@@ -37,4 +37,6 @@ public final class Constants {
     public static final String IS_MOCKED    = "is_mocking";
     public static final String USER_COURSES = "courses";
     public static final String USER_ID      = "studentId";
+
+
 }

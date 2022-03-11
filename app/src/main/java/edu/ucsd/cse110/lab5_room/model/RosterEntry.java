@@ -7,14 +7,12 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
+import java.io.Serializable;
+
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 
 @Entity
-public class RosterEntry {
-//    @Ignore
-//    private AppDatabase db;
-
+public class RosterEntry implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public int id = 0;
 
@@ -23,7 +21,6 @@ public class RosterEntry {
 
     @ColumnInfo(name = "course")
     private final int courseId;
-//    private Course course;
 
     public RosterEntry(int id, int studentId, int courseId) {
         this.id        = id;

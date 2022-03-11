@@ -20,7 +20,6 @@ import com.squareup.picasso.Picasso;
 import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.PersonDetailActivity;
 import edu.ucsd.cse110.lab5_room.R;
-import edu.ucsd.cse110.lab5_room.model.data.FilterableMatchList;
 import edu.ucsd.cse110.lab5_room.model.Student;
 
 public class MatchListView extends FrameLayout {
