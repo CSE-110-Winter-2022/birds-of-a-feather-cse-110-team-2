@@ -76,13 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         // view saved button creates dialog
         Button viewSaved = findViewById(R.id.btn_saved);
-        viewSaved.setOnClickListener(view -> {
-            DialogFragment viewSavedDialog = new SavedSelectDialog((chosen) -> {
-                matchList = chosen;
-                studentList.updateList(chosen.sort(sort));
-            });
-            viewSavedDialog.show(getSupportFragmentManager(), "Saved Lists");
-        });
+        viewSaved.setOnClickListener(this::onClick);
 
         // change internal search state with search button
         // TODO move this to a new class and implement Nearby
@@ -118,5 +112,17 @@ public class MainActivity extends AppCompatActivity {
         currState = (currState + 1) % filterStates.length;
         sort = filterStates[currState];
         updateFilters();
+    }
+
+    private void onClick(View view) {
+
+
+
+        DialogFragment viewSavedDialog = new SavedSelectDialog((chosen) -> {
+            matchList = chosen;
+            studentList.updateList(chosen.sort(sort));
+
+        });
+        viewSavedDialog.show(getSupportFragmentManager(), "Saved Lists");
     }
 }

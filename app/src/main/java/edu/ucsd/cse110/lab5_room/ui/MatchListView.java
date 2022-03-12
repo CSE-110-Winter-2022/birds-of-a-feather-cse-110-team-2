@@ -70,6 +70,8 @@ public class MatchListView extends FrameLayout {
     }
 
     public void updateList(Student[] students) {
+        //init();
+
         this.adapter.setStudents(students);
     }
 
@@ -80,6 +82,7 @@ public class MatchListView extends FrameLayout {
     // MLAdapter creates the list from a data source
     private static class MLAdapter extends RecyclerView.Adapter<MLViewHolder> {
         private Student[] students;
+
 
         public void setStudents(Student[] students) {
             this.students = students;
@@ -114,17 +117,21 @@ public class MatchListView extends FrameLayout {
         private final TextView nameView;
         private Student match;
         private final ImageView personPictureView;
+        private final TextView courseView;
 
         public MLViewHolder(@NonNull View itemView) {
             super(itemView);
             this.nameView = itemView.findViewById(R.id.person_row_name);
             this.personPictureView = itemView.findViewById(R.id.person_row_picture);
+            this.courseView = itemView.findViewById(R.id.course);
             itemView.setOnClickListener(this);
         }
 
         public void setStudent(Student m) {
             this.match = m;
             this.nameView.setText(m.getName());
+            //TODO: implement student matching class method
+            this.courseView.setText("1");
             Picasso.get().load(match.getPhotoURL()).into(personPictureView);
         }
 
