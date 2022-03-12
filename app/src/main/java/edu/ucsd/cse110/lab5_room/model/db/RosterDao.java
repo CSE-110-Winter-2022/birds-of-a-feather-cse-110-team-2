@@ -10,6 +10,7 @@ import androidx.room.Query;
 import java.util.List;
 import java.util.UUID;
 
+import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.model.RosterEntry;
 import edu.ucsd.cse110.lab5_room.model.Student;
@@ -24,6 +25,7 @@ public abstract class RosterDao {
 
     @Query("select exists(select 1 from RosterEntry where (student=:sid and course=:cid))")
     public abstract boolean enrolled(UUID sid, int cid);
+
 
     public boolean amEnrolled(Context c, Course course) {
         StudentDao studentDao = AppDatabase.singleton(c).studentDao();
