@@ -60,7 +60,8 @@ public class PersonDetailActivity extends AppCompatActivity {
     }
 
     public void onGoBackClicked(View view) {
-        finish();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 }
