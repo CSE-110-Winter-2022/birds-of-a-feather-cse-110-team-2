@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -93,10 +92,6 @@ public abstract class AuthActivity extends AppCompatActivity {
 
     protected String getAccumulatedString(String extraName) {
         return this.intent.getStringExtra(extraName);
-    }
-
-    protected boolean getAccumulatedBool(String extraName) {
-        return this.intent.getBooleanExtra(extraName, false);
     }
 
     protected List<?> getAccumulatedList(String extraName) {
