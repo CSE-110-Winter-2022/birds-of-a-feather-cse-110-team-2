@@ -9,6 +9,7 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -118,10 +119,12 @@ public class FilterableMatchList {
     }
 
     public byte[] serialize() {
-        byte[] res = SerializationUtils.serialize(this.rosterEntries);
-        ArrayList<RosterEntry> rosterEntries = SerializationUtils.deserialize(res);
-        Log.d("TAG4", rosterEntries.toString());
-        return res;
+        return SerializationUtils.serialize(this.rosterEntries);
+    }
+
+    @Override @NonNull
+    public String toString() {
+        return Arrays.deepToString(classmates.toArray(new Student[0]));
     }
 
     private static class TimeComparator extends ScoreComparator<Course, Integer> {

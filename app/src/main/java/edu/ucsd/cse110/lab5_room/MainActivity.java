@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArraySet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -58,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
         // button to add a new mocked user
         Button mockButton = findViewById(R.id.btn_mock);
         mockButton.setOnClickListener(view -> {
-//            Intent i = new Intent(this, LoginActivity.class);
-//            i.putExtra(Constants.IS_MOCKED, true);
             Intent i = new Intent(this, NearbyMockActivity.class);
             startActivity(i);
         });
@@ -80,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
             DialogFragment viewSavedDialog = new SavedSelectDialog((chosen) -> {
                 matchList = chosen;
                 studentList.updateList(chosen.sort(sort));
+                // TODO remove this once you fix this stupid little buggy
+                Log.d(getLocalClassName(), matchList.toString());
+                refresh();
             });
             viewSavedDialog.show(getSupportFragmentManager(), "Saved Lists");
         });
@@ -96,17 +98,6 @@ public class MainActivity extends AppCompatActivity {
             if (!searchActive) {
                 DialogFragment saveListDialog = new SaveListDialog(matchList);
                 saveListDialog.show(getSupportFragmentManager(), "Save List");
-                saveListDialog.onDismiss(new DialogInterface() {
-                    @Override
-                    public void cancel() {
-                        refresh();
-                    }
-
-                    @Override
-                    public void dismiss() {
-                        refresh();
-                    }
-                });
             }
 
             // stop search

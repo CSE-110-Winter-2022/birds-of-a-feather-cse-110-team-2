@@ -24,18 +24,6 @@ public class LoginActivity extends AuthActivity {
 
         checkBluetoothStatus(this);
 
-        boolean mocked = getAccumulatedBool(Constants.IS_MOCKED);
-        if (mocked) {
-            // hide Google login if we are setting up a new mocked user
-            TextView topText = findViewById(R.id.login_title);
-            topText.setText(R.string.welcome_mock);
-
-            View googleButton = findViewById(R.id.login_btn_google);
-            View orText       = findViewById(R.id.tv_login_or);
-            googleButton.setVisibility(View.GONE);
-            orText.setVisibility(View.GONE);
-        }
-
         firstName = findViewById(R.id.login_field_firstname);
         firstName.setFilters(new InputFilter[]{
                 new CustomFilter(Constants.CHARSET_ALPHA_LATIN),

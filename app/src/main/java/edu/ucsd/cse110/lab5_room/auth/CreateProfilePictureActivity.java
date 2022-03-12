@@ -40,11 +40,10 @@ public class CreateProfilePictureActivity extends AuthActivity {
         String name = getAccumulatedString(Constants.USER_NAME);
         String pfp  = this.url.getText().toString();
         List<Course> courses = (List<Course>) getAccumulatedList(Constants.USER_COURSES);
-        boolean mocked = getAccumulatedBool(Constants.IS_MOCKED);
 
         BoFApplication app = (BoFApplication) getApplication();
         app.executorService.submit(() -> {
-            SearchManager.checkMatches(this, UUID.randomUUID(), !mocked, name, pfp, courses);
+            SearchManager.checkMatches(this, UUID.randomUUID(), true, name, pfp, courses);
         });
 
         // launch main intent
