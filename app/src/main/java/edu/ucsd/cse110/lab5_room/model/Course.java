@@ -176,8 +176,21 @@ public class Course implements Parcelable {
     }
 
     public static int quartersAgo(Quarter quarter, int year) {
-        // TODO quarters between
-        return 0;
+        int quarterEnum = -1;
+        if (quarter == Quarter.WINTER) {
+            quarterEnum = 0;
+        }
+        else if (quarter == Quarter.SPRING) {
+            quarterEnum = 1;
+        }
+        else if (quarter == Quarter.FALL) {
+            quarterEnum = 3;
+        }
+        else {
+            quarterEnum = 2;
+        }
+
+        return (2022 - year) * 4 + 0 - quarterEnum;
     }
 
     protected Course(Parcel in) {
