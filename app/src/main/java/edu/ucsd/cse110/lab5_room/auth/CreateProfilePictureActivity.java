@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import edu.ucsd.cse110.lab5_room.MainActivity;
 import edu.ucsd.cse110.lab5_room.R;
-import edu.ucsd.cse110.lab5_room.data.StudentCreator;
+import edu.ucsd.cse110.lab5_room.data.SearchManager;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.ui.BoFButton;
@@ -44,7 +44,7 @@ public class CreateProfilePictureActivity extends AuthActivity {
 
         BoFApplication app = (BoFApplication) getApplication();
         app.executorService.submit(() -> {
-            StudentCreator.create(this, UUID.randomUUID(), !mocked, name, pfp, courses);
+            SearchManager.checkMatches(this, UUID.randomUUID(), !mocked, name, pfp, courses);
         });
 
         // launch main intent
