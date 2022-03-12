@@ -24,70 +24,95 @@
 
     <Button
         android:id="@+id/backButton"
-        android:background="@drawable/bof_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/bof_btn"
         android:onClick="onGoBackClicked"
         android:text="@string/go_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favoriteCheckBox" />
 
     <TextView
         android:id="@+id/studentNameTV"
-        android:layout_width="314dp"
-        android:layout_height="59dp"
+        android:layout_width="245dp"
+        android:layout_height="63dp"
         android:layout_marginStart="21dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="76dp"
-        android:layout_marginBottom="476dp"
+        android:layout_marginBottom="440dp"
+        android:gravity="center"
         android:textSize="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/favoriteCheckBox"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/studentProfileView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/classListTV"
-        android:layout_width="213dp"
-        android:layout_height="30dp"
+        android:layout_width="301dp"
+        android:layout_height="318dp"
         android:layout_marginTop="304dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/studentProfileView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/studentNameTV"
+        android:layout_width="137dp"
+        android:layout_height="136dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/favoriteCheckBox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
         tools:srcCompat="@tools:sample/avatars" />
 
     <CheckBox
         android:id="@+id/favoriteCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="215dp"
+        android:layout_marginBottom="392dp"
         android:button="@drawable/star_checkbox"
         android:buttonTint="@color/gold"
-        android:minHeight="0dp"
         android:minWidth="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:minHeight="0dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        app:layout_constraintBottom_toTopOf="@+id/backButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/waveCheckBox"
+        android:layout_width="64dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="215dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="392dp"
+        android:button="@drawable/wave_checkbox"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        app:layout_constraintBottom_toTopOf="@+id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.606"
-        app:layout_constraintStart_toEndOf="@+id/studentProfileView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
