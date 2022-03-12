@@ -98,4 +98,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <CheckBox
+        android:id="@+id/waveCheckBox"
+        android:layout_width="64dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="215dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="392dp"
+        android:button="@drawable/wave_checkbox"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        app:layout_constraintBottom_toTopOf="@+id/backButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
