@@ -26,9 +26,21 @@
         android:id="@+id/person_row_picture"
         android:layout_width="70dp"
         android:layout_height="44dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="304dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/favoritesToggleBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/star_checkbox"
+        android:buttonTint="@color/gold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/person_row_picture"
+        app:layout_constraintHorizontal_bias="0.224"
+        app:layout_constraintStart_toEndOf="@+id/person_row_name"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
