@@ -10,6 +10,7 @@ import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import java.util.Objects;
 import java.util.Set;
@@ -18,6 +19,7 @@ import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
 import edu.ucsd.cse110.lab5_room.data.SearchManager;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
+import edu.ucsd.cse110.lab5_room.internal.EnumAdapter;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 import edu.ucsd.cse110.lab5_room.ui.MatchListView;
 import edu.ucsd.cse110.lab5_room.ui.SaveListDialog;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         // redirect to login if no user yet
         BoFApplication app = (BoFApplication) getApplication();
 
+        // make sure we are logged in and redirect to login if not
         AppDatabase db = AppDatabase.singleton(this);
         app.executorService.submit(() -> {
             if (!db.studentDao().loggedIn()) {
@@ -53,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-
 
         // hide action bar
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -70,27 +72,30 @@ public class MainActivity extends AppCompatActivity {
         studentList = findViewById(R.id.student_list);
         registerFilterObserver(() -> studentList.updateList(matchList.sort(sort)));
 
-        // filter button toggles filter state
-        Button filterButton = findViewById(R.id.btn_filter);
-        filterButton.setOnClickListener(view -> advanceFilter());
-        registerFilterObserver(() -> filterButton.setText(sort.toString()));
+        // sort button toggles sort state
+        Button sortButton = findViewById(R.id.btn_filter);
+        sortButton.setOnClickListener(view -> advanceFilter());
+        registerFilterObserver(() -> sortButton.setText(sort.toString()));
+
+        // Filter spinner
+        Spinner filterSpinner = findViewById(R.id.filterSpinner);
+        EnumAdapter<FilterableMatchList.StandardFilter> filterAdapter = new EnumAdapter<>(
+                FilterableMatchList.StandardFilter.class,
+                chosen -> studentList.updateList(matchList.generate(sort, chosen.filter))
+        );
+        filterSpinner.setAdapter(filterAdapter.toArrayAdapter(this));
+        filterSpinner.setOnItemSelectedListener(filterAdapter);
 
         // view saved button creates dialog
         Button viewSaved = findViewById(R.id.btn_saved);
         viewSaved.setOnClickListener(view -> {
             DialogFragment viewSavedDialog = new SavedSelectDialog((chosen) -> {
-
-
                 runOnUiThread(()-> {
                     matchList = chosen;
-                    //Log.d("chosen", chosen.toString());
-                    //Log.d("chosen_again", String.valueOf(chosen.sort(sort).length));
                     studentList.updateList(chosen.sort(sort));
-                    //Log.d("matchList", matchList.toString());
-                    //refresh();
                 });
-
             });
+
             viewSavedDialog.show(getSupportFragmentManager(), "Saved Lists");
         });
 
@@ -128,13 +133,5 @@ public class MainActivity extends AppCompatActivity {
         currState = (currState + 1) % filterStates.length;
         sort = filterStates[currState];
         updateFilters();
-    }
-
-    public void refresh() {
-        // https://stackoverflow.com/a/38720750/1420247
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
     }
 }

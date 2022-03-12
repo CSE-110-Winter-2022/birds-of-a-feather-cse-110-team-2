@@ -38,9 +38,22 @@
         android:button="@drawable/star_checkbox"
         android:buttonTint="@color/gold"
         android:layout_marginEnd="-10dp"
+        android:elevation="2dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/course" />
+
+    <CheckBox
+        android:id="@+id/waveToggleBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/wave_checkbox"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:layout_marginEnd="-15dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/favoritesToggleBox" />
 
     <TextView
         android:id="@+id/course"
@@ -52,16 +65,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/wave_checkbox"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/favoritesToggleBox"
-        app:layout_constraintStart_toEndOf="@+id/person_row_name"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

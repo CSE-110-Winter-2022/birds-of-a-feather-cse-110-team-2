@@ -19,6 +19,7 @@ import java.util.Set;
 import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
+import edu.ucsd.cse110.lab5_room.internal.EnumAdapter;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 import edu.ucsd.cse110.lab5_room.model.db.CourseDao;
@@ -139,37 +140,6 @@ public class AddClassesActivity extends AuthActivity {
         else {
             accumulateList(Constants.USER_COURSES, new ArrayList<>(courseList));
             moveOn(CreateProfilePictureActivity.class);
-        }
-    }
-
-    // make our adapters for our enums generic
-    private static class EnumAdapter<E extends Enum<E>> implements AdapterView.OnItemSelectedListener {
-        private final E[] states;
-        private final Callback<E> callback;
-
-        public interface Callback<E> {
-            void update(E chosen);
-        }
-
-        public EnumAdapter(Class<E> eClass, Callback<E> callback) {
-            this.states   = eClass.getEnumConstants();
-            this.callback = callback;
-        }
-
-        public ArrayAdapter<E> toArrayAdapter(Context c) {
-            return new ArrayAdapter<>(c, android.R.layout.simple_spinner_dropdown_item, states);
-        }
-
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            // the warning about an unchecked cast is not a real issue, just stems from generics
-            // noinspection unchecked
-            callback.update((E) adapterView.getItemAtPosition(i));
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-            callback.update(null);
         }
     }
 }

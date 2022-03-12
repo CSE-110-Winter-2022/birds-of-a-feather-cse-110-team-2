@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.ucsd.cse110.lab5_room.model.Course;
+
 public final class Constants {
     private Constants() {}
 
@@ -31,6 +33,9 @@ public final class Constants {
 
     // the user ID of the app user is always 1
     public static final int ME_UID = 1;
+
+    public static final Course.Quarter CURR_QUARTER = Course.Quarter.WI;
+    public static final int CURR_YEAR               = 2022;
 
     public static final String USER_NAME    = "name";
     public static final String USER_PFP     = "profileURL";

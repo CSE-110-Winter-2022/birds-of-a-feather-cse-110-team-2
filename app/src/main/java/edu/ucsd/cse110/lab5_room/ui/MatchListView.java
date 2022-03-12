@@ -142,11 +142,8 @@ public class MatchListView extends FrameLayout {
             Context context = view.getContext();
 
             Intent intent = new Intent(context, PersonDetailActivity.class);
-
             intent.putExtra(Constants.USER_ID, this.match.getId().toString());
-
             context.startActivity(intent);
-
         }
     }
 

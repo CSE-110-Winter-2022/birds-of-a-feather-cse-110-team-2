@@ -63,6 +63,26 @@
             app:layout_constraintStart_toEndOf="@id/btn_filter"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <TextView
+            android:id="@+id/filterLabel"
+            android:text="@string/filter"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_mock"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <Spinner
+            android:id="@+id/filterSpinner"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toEndOf="@id/filterLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_mock" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <edu.ucsd.cse110.lab5_room.ui.MatchListView
@@ -70,4 +90,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/search_layout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

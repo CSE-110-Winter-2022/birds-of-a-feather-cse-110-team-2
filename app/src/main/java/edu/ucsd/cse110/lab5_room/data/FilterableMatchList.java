@@ -1,7 +1,6 @@
 package edu.ucsd.cse110.lab5_room.data;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -10,14 +9,16 @@ import org.apache.commons.lang3.SerializationUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.model.RosterEntry;
 import edu.ucsd.cse110.lab5_room.model.Student;
@@ -28,14 +29,7 @@ public class FilterableMatchList {
             @NonNull
             @Override
             public String toString() {
-                return "Filter";
-            }
-        },
-        FAVORITES {
-            @NonNull
-            @Override
-            public String toString() {
-                return "Favorites Only";
+                return "Sort";
             }
         },
         CLASS_SIZE {
@@ -54,10 +48,32 @@ public class FilterableMatchList {
         }
     }
 
-    private final ArrayList<RosterEntry> rosterEntries;
+    public enum StandardFilter {
+        NONE("Default", (s, c) -> true),
+        CURRENT("This quarter only", (s, c) ->
+            (c.getYear() == Constants.CURR_YEAR) && (c.getQuarter() == Constants.CURR_QUARTER)
+        ),
+        FAVORITES("Favorites only", (s, c) -> s.getFavorite());
 
-    private final Set<Student> classmates;
-    private final Set<Student> favorites;
+        public final String name;
+        public final Filter filter;
+        StandardFilter(String name, Filter f) {
+            this.name   = name;
+            this.filter = f;
+        }
+
+        @NonNull @Override
+        public String toString() {
+            return this.name;
+        }
+    }
+
+    public interface Filter {
+        boolean filter(Student s, Course c);
+    }
+
+    private final ArrayList<RosterEntry> rosterEntries;
+    private final Map<Student, Set<Course>> classmates;
 
     private final SizeComparator sizeComparator = new SizeComparator();
     private final SortedSet<Student> sizeSort   = new TreeSet<>(sizeComparator);
@@ -72,8 +88,7 @@ public class FilterableMatchList {
 
     public FilterableMatchList(Context c, ArrayList<RosterEntry> rosterEntries) {
         this.rosterEntries = new ArrayList<>();
-        this.classmates    = new LinkedHashSet<>();
-        this.favorites     = new LinkedHashSet<>();
+        this.classmates    = new HashMap<>();
 
         // find out where in each array students belong
         for (RosterEntry m : rosterEntries)
@@ -88,34 +103,44 @@ public class FilterableMatchList {
         sizeComparator.compute(classmate, course);
         timeComparator.compute(classmate, course);
 
-        addStudent(classmate);
-    }
-
-    private void addStudent(Student classmate) {
-        this.classmates.add(classmate);
+        if (this.classmates.containsKey(classmate)) {
+            Set<Course> courses = this.classmates.get(classmate);
+            courses.add(course);
+        }
+        else {
+            this.classmates.put(classmate, Collections.singleton(course));
+        }
         this.sizeSort.add(classmate);
         this.timeSort.add(classmate);
-
-        if (classmate.getFavorite())
-            this.favorites.add(classmate);
     }
 
     public Student[] sort(SortType sort) {
-                switch (sort) {
-                    case DEFAULT:
-                        return this.classmates.toArray(new Student[0]);
+        switch (sort) {
+            case DEFAULT:
+                return this.classmates.keySet().toArray(new Student[0]);
 
-                    case FAVORITES:
-                        return this.favorites.toArray(new Student[0]);
+            case CLASS_SIZE:
+                return this.sizeSort.toArray(new Student[0]);
 
-                    case CLASS_SIZE:
-                        return this.sizeSort.toArray(new Student[0]);
-
-                    case CLASS_RECENT:
-                        return this.timeSort.toArray(new Student[0]);
+            case CLASS_RECENT:
+                return this.timeSort.toArray(new Student[0]);
         }
 
         return null;
+    }
+
+    public Student[] generate(SortType sort, Filter filter) {
+        Student[] sorted = sort(sort);
+
+        List<Student> filteredStudents = new ArrayList<>();
+        for (Student s : sorted) {
+            for (Course c : classmates.get(s)) {
+                if (filter.filter(s, c))
+                    filteredStudents.add(s);
+            }
+        }
+
+        return filteredStudents.toArray(new Student[0]);
     }
 
     public byte[] serialize() {
@@ -124,7 +149,7 @@ public class FilterableMatchList {
 
     @Override @NonNull
     public String toString() {
-        return Arrays.deepToString(classmates.toArray(new Student[0]));
+        return Arrays.deepToString(classmates.keySet().toArray(new Student[0]));
     }
 
     private static class TimeComparator extends ScoreComparator<Course, Integer> {
