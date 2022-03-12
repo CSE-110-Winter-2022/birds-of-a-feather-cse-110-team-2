@@ -44,6 +44,10 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.4.1-alpha03'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.0-alpha03'
 
+    // Room
+    def room_version = "2.4.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 
     //image loading library
     implementation 'com.squareup.picasso:picasso:2.71828'
