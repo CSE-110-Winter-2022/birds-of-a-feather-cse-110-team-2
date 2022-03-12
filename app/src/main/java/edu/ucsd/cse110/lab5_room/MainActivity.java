@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         // redirect to login if no user yet
         BoFApplication app = (BoFApplication) getApplication();
+
         AppDatabase db = AppDatabase.singleton(this);
         app.executorService.submit(() -> {
             if (!db.studentDao().loggedIn()) {
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+
 
         // hide action bar
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -77,11 +79,17 @@ public class MainActivity extends AppCompatActivity {
         Button viewSaved = findViewById(R.id.btn_saved);
         viewSaved.setOnClickListener(view -> {
             DialogFragment viewSavedDialog = new SavedSelectDialog((chosen) -> {
-                matchList = chosen;
-                studentList.updateList(chosen.sort(sort));
-                // TODO remove this once you fix this stupid little buggy
-                Log.d(getLocalClassName(), matchList.toString());
-                refresh();
+
+
+                runOnUiThread(()-> {
+                    matchList = chosen;
+                    //Log.d("chosen", chosen.toString());
+                    //Log.d("chosen_again", String.valueOf(chosen.sort(sort).length));
+                    studentList.updateList(chosen.sort(sort));
+                    //Log.d("matchList", matchList.toString());
+                    //refresh();
+                });
+
             });
             viewSavedDialog.show(getSupportFragmentManager(), "Saved Lists");
         });

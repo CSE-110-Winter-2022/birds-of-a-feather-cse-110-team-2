@@ -3,6 +3,7 @@ package edu.ucsd.cse110.lab5_room.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +88,7 @@ public class MatchListView extends FrameLayout {
         public void setStudents(Student[] students) {
             this.students = students;
             notifyDataSetChanged();
+            //notifyAll();
         }
 
         @NonNull
@@ -140,8 +142,11 @@ public class MatchListView extends FrameLayout {
             Context context = view.getContext();
 
             Intent intent = new Intent(context, PersonDetailActivity.class);
+
             intent.putExtra(Constants.USER_ID, this.match.getId().toString());
+
             context.startActivity(intent);
+
         }
     }
 

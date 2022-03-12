@@ -101,18 +101,18 @@ public class FilterableMatchList {
     }
 
     public Student[] sort(SortType sort) {
-        switch (sort) {
-            case DEFAULT:
-                return this.classmates.toArray(new Student[0]);
+                switch (sort) {
+                    case DEFAULT:
+                        return this.classmates.toArray(new Student[0]);
 
-            case FAVORITES:
-                return this.favorites.toArray(new Student[0]);
+                    case FAVORITES:
+                        return this.favorites.toArray(new Student[0]);
 
-            case CLASS_SIZE:
-                return this.sizeSort.toArray(new Student[0]);
+                    case CLASS_SIZE:
+                        return this.sizeSort.toArray(new Student[0]);
 
-            case CLASS_RECENT:
-                return this.timeSort.toArray(new Student[0]);
+                    case CLASS_RECENT:
+                        return this.timeSort.toArray(new Student[0]);
         }
 
         return null;
