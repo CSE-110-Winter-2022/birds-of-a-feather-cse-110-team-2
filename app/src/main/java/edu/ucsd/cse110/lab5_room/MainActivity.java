@@ -2,6 +2,8 @@ package edu.ucsd.cse110.lab5_room;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.work.Data;
+import androidx.work.PeriodicWorkRequest;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,8 +15,11 @@ import android.widget.Button;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
+import edu.ucsd.cse110.lab5_room.data.AutoSave;
+import edu.ucsd.cse110.lab5_room.data.SavedListManager;
 import edu.ucsd.cse110.lab5_room.data.SearchManager;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
@@ -57,7 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         // hide action bar
         Objects.requireNonNull(getSupportActionBar()).hide();
-
+        PeriodicWorkRequest autoSaveRequest = new PeriodicWorkRequest
+                .Builder(AutoSave.class, 5, TimeUnit.MINUTES)
+                .setInputData(new Data.Builder().putByteArray("match-list", matchList.serialize()).build())
+                .build();
         // button to add a new mocked user
         Button mockButton = findViewById(R.id.btn_mock);
         mockButton.setOnClickListener(view -> {
