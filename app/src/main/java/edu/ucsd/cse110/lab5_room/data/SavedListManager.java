@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Base64;
-import android.util.Log;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import edu.ucsd.cse110.lab5_room.data.match.StatefulMatchList;
 
 public class SavedListManager {
     private static SavedListManager savedListManager;
@@ -32,7 +32,7 @@ public class SavedListManager {
         return this.prefs.getStringSet(ALL_SAVES, new HashSet<>());
     }
 
-    public void save(String name, FilterableMatchList list) {
+    public void save(String name, StatefulMatchList list) {
         // add new save to list of all saves
         Set<String> names = getSaveNames();
         // TODO throw an error if duplicate
@@ -48,11 +48,11 @@ public class SavedListManager {
         editor.apply();
     }
 
-    public FilterableMatchList get(Context c, String name) {
+    public StatefulMatchList get(Context c, String name) {
         String b64  = this.prefs.getString(SAVE_PREFIX + name, "");
         byte[] list = Base64.decode(b64, Base64.DEFAULT);
 
-        return FilterableMatchList.deserialize(c, list);
+        return StatefulMatchList.deserialize(c, list);
     }
 
     public void remove(String name) {

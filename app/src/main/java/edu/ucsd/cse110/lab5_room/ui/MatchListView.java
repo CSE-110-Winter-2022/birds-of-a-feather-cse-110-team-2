@@ -3,6 +3,7 @@ package edu.ucsd.cse110.lab5_room.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +19,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Arrays;
+
+import edu.ucsd.cse110.lab5_room.data.match.MatchListObserver;
+import edu.ucsd.cse110.lab5_room.data.match.StatefulMatchList;
+import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 import edu.ucsd.cse110.lab5_room.internal.Constants;
 import edu.ucsd.cse110.lab5_room.PersonDetailActivity;
 import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.model.Student;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 
-public class MatchListView extends FrameLayout {
+public class MatchListView extends FrameLayout
+    implements MatchListObserver {
     // creates an internal RecyclerView
     private final RecyclerView rv;
     private final Context context;
     private MLAdapter adapter;
+
+    protected static MatchListPresenter presenter;
 
     public MatchListView(Context context) {
         super(context);
@@ -71,22 +80,21 @@ public class MatchListView extends FrameLayout {
         return null;
     }
 
-    public void updateList(Student[] students) {
-        //init();
-
-        this.adapter.setStudents(students);
+    public void setPresenter(MatchListPresenter p2) {
+        presenter = p2;
     }
 
-    public void updateList() {
-        this.adapter.notifyDataSetChanged();
+    @Override
+    public void update(StatefulMatchList list) {
+        this.adapter.setStudents(list.toArray());
     }
 
     // MLAdapter creates the list from a data source
     private static class MLAdapter extends RecyclerView.Adapter<MLViewHolder> {
-        private Student[] students;
-
+        private Student[] students = new Student[0];
 
         public void setStudents(Student[] students) {
+            Log.d("TAG", Arrays.deepToString(students));
             this.students = students;
             notifyDataSetChanged();
             //notifyAll();
@@ -123,12 +131,17 @@ public class MatchListView extends FrameLayout {
         private final ImageView personPictureView;
         private final TextView courseView;
 
+        private final BoFApplication app;
+        private final AppDatabase db;
+
         public MLViewHolder(@NonNull View itemView) {
             super(itemView);
             this.nameView = itemView.findViewById(R.id.person_row_name);
             this.personPictureView = itemView.findViewById(R.id.person_row_picture);
             this.courseView = itemView.findViewById(R.id.course);
             this.isFavoriteBox = itemView.findViewById(R.id.favoritesToggleBox);
+            this.app = (BoFApplication) itemView.getContext().getApplicationContext();
+            this.db = AppDatabase.singleton(this.app);
             itemView.setOnClickListener(this);
         }
 
@@ -138,14 +151,16 @@ public class MatchListView extends FrameLayout {
             //TODO: implement student matching class method
             this.courseView.setText("1");
             this.isFavoriteBox.setChecked(this.match.getFavorite());
-            this.isFavoriteBox.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    boolean isChecked = ((CheckBox)view).isChecked();
-                    AppDatabase db = AppDatabase.singleton(view.getContext());
-                    db.studentDao().setFavorite(match.getId(), isChecked);
-                }
+            this.isFavoriteBox.setOnClickListener(view -> {
+                boolean isChecked = ((CheckBox) view).isChecked();
+                this.app.executorService.submit(() -> {
+                    this.db.studentDao().setFavorite(match.getId(), isChecked);
+
+                    if (presenter != null)
+                        presenter.notifyObservers();
+                });
             });
+
             Picasso.get().load(match.getPhotoURL()).into(personPictureView);
         }
 

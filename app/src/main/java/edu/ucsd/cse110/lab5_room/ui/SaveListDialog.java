@@ -13,13 +13,13 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.data.AutoSave;
 import edu.ucsd.cse110.lab5_room.data.SavedListManager;
-import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
+import edu.ucsd.cse110.lab5_room.data.match.StatefulMatchList;
 
 public class SaveListDialog extends AppCompatDialogFragment {
-    private final FilterableMatchList list;
+    private final StatefulMatchList list;
     private SavedListManager sm;
 
-    public SaveListDialog(FilterableMatchList list) {
+    public SaveListDialog(StatefulMatchList list) {
         this.list = list;
     }
 

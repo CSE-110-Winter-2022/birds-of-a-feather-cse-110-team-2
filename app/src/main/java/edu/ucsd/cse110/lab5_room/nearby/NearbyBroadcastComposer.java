@@ -6,10 +6,7 @@ import com.google.android.gms.nearby.messages.Message;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-import java.io.BufferedWriter;
-import java.io.CharArrayWriter;
 import java.io.StringWriter;
-import java.util.List;
 import java.util.Set;
 
 import de.siegmar.fastcsv.writer.CsvWriter;

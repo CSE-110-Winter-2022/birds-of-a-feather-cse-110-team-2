@@ -5,8 +5,6 @@ import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.ArraySet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -14,17 +12,17 @@ import android.widget.Spinner;
 import com.google.android.gms.nearby.messages.Message;
 
 import java.util.Objects;
-import java.util.Set;
+
+import edu.ucsd.cse110.lab5_room.data.match.MatchFilter;
+import edu.ucsd.cse110.lab5_room.data.match.MatchSorter;
+import edu.ucsd.cse110.lab5_room.internal.*;
+import edu.ucsd.cse110.lab5_room.nearby.*;
 
 import edu.ucsd.cse110.lab5_room.data.AutoSave;
 import edu.ucsd.cse110.lab5_room.data.SearchManager;
-import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
-import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
-import edu.ucsd.cse110.lab5_room.internal.EnumAdapter;
-import edu.ucsd.cse110.lab5_room.nearby.NearbyBroadcastComposer;
-import edu.ucsd.cse110.lab5_room.nearby.NearbyMessageHandler;
-import edu.ucsd.cse110.lab5_room.nearby.NearbyMessageListener;
+import edu.ucsd.cse110.lab5_room.data.match.StatefulMatchList;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
+import edu.ucsd.cse110.lab5_room.ui.MatchListPresenter;
 import edu.ucsd.cse110.lab5_room.ui.MatchListView;
 import edu.ucsd.cse110.lab5_room.ui.SaveListDialog;
 import edu.ucsd.cse110.lab5_room.ui.SavedSelectDialog;
@@ -32,13 +30,8 @@ import edu.ucsd.cse110.lab5_room.ui.SavedSelectDialog;
 public class MainActivity extends AppCompatActivity {
     private static boolean searchActive = false;
 
-    private static int currState = 0;
-    private static final FilterableMatchList.SortType[] filterStates = FilterableMatchList.SortType.values();
-    private static FilterableMatchList.SortType sort = filterStates[currState];
-
-    private static final Set<Runnable> filterObservers = new ArraySet<>();
-    private static FilterableMatchList matchList;
-    private static MatchListView studentList;
+    private static       int           currState  = 0;
+    private static final MatchSorter[] sortStates = MatchSorter.values();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,21 +64,27 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        // get matches
-        matchList = SearchManager.getMatches(this);
-        studentList = findViewById(R.id.student_list);
-        registerFilterObserver(() -> studentList.updateList(matchList.sort(sort)));
+        // get matches and populate view with them
+        StatefulMatchList matchList = SearchManager.getMatches(this);
+        MatchListView studentList = findViewById(R.id.student_list);
+        MatchListPresenter presenter = new MatchListPresenter(matchList);
+//        studentList.setPresenter(presenter);
+        presenter.register(studentList);
+//        studentList.setPresenter(presenter);
 
         // sort button toggles sort state
         Button sortButton = findViewById(R.id.btn_filter);
-        sortButton.setOnClickListener(view -> advanceFilter());
-        registerFilterObserver(() -> sortButton.setText(sort.toString()));
+        sortButton.setOnClickListener(view -> {
+            currState = (currState + 1) % sortStates.length;
+            presenter.setSorter(sortStates[currState]);
+            sortButton.setText(sortStates[currState].toString());
+        });
 
         // Filter spinner
         Spinner filterSpinner = findViewById(R.id.filterSpinner);
-        EnumAdapter<FilterableMatchList.StandardFilter> filterAdapter = new EnumAdapter<>(
-                FilterableMatchList.StandardFilter.class,
-                chosen -> studentList.updateList(matchList.generate(sort, chosen.filter))
+        EnumAdapter<MatchFilter> filterAdapter = new EnumAdapter<>(
+                MatchFilter.class,
+                chosen -> runOnUiThread(() -> presenter.setFilter(chosen))
         );
         filterSpinner.setAdapter(filterAdapter.toArrayAdapter(this));
         filterSpinner.setOnItemSelectedListener(filterAdapter);
@@ -93,21 +92,15 @@ public class MainActivity extends AppCompatActivity {
         // view saved button creates dialog
         Button viewSaved = findViewById(R.id.btn_saved);
         viewSaved.setOnClickListener(view -> {
-            DialogFragment viewSavedDialog = new SavedSelectDialog((chosen) -> {
-                runOnUiThread(()-> {
-                    matchList = chosen;
-                    studentList.updateList(chosen.sort(sort));
-                });
+            DialogFragment viewSavedDialog = new SavedSelectDialog(chosen -> {
+                runOnUiThread(() -> presenter.setList(chosen));
             });
-
             viewSavedDialog.show(getSupportFragmentManager(), "Saved Lists");
         });
 
         // set up Nearby
-        NearbyMessageHandler handler = NearbyMessageHandler.singleton(this);
+        NearbyMessageHandler  handler        = NearbyMessageHandler.singleton(this);
         NearbyMessageListener nearbyListener = new NearbyMessageListener(this, handler);
-
-        Log.d("TAG", matchList.toString());
 
         // change internal search state with search button
         final Button searchButton = findViewById(R.id.start);
@@ -142,22 +135,5 @@ public class MainActivity extends AppCompatActivity {
                 saveListDialog.show(getSupportFragmentManager(), "Save List");
             }
         });
-
-        updateFilters();
-    }
-
-    private void registerFilterObserver(Runnable r) {
-        filterObservers.add(r);
-    }
-
-    private void updateFilters() {
-        for (Runnable r : filterObservers)
-            r.run();
-    }
-
-    private void advanceFilter() {
-        currState = (currState + 1) % filterStates.length;
-        sort = filterStates[currState];
-        updateFilters();
     }
 }
