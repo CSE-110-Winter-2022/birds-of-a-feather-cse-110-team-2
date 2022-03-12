@@ -16,6 +16,7 @@
     <string name="sign_in_with_google">Sign In with Google</string>
     <string name="or">OR</string>
     <string name="welcome">Welcome!</string>
+    <string name="welcome_mock">Add New Student</string>
     <string name="bluetooth_required">Bluetooth Required</string>
     <string name="bluetooth_prompt">Bluetooth connection is required for this app. Please turn on Bluetooth for your device in your settings.</string>
     <string name="paste_the_url_here">Paste the URL here!</string>
@@ -24,7 +25,7 @@
     <string name="not_now">Enable in Settings</string>
 
     <!-- Strings for add classes activity -->
-    <string name="add_your_classes">Add Your Classes!</string>
+    <string name="add_your_classes">Add Classes</string>
     <string name="edit_your_classes">Edit Class</string>
     <string name="current_added_classes">Added Classes:</string>
     <string name="add_another_class">Add another Class</string>
@@ -41,36 +42,13 @@
     <string name="error_message_4">Make sure you either sign in with google or enter your name!</string>
     <string name="close">Close</string>
 
-    <!-- String array for years -->
-    <string-array name="year_array">
-        <item>2016</item>
-        <item>2017</item>
-        <item>2018</item>
-        <item>2019</item>
-        <item>2020</item>
-        <item>2021</item>
-        <item>2022</item>
-    </string-array>
+    <!-- Strings for save list dialog box -->
+    <string name="save_dialog_title">Save List</string>
+    <string name="save_list_name_hint">Name</string>
+    <string name="save_text">Save</string>
+    <string name="cancel_text">Cancel</string>
 
-    <string-array name="quarter_array">
-        <item>F</item>
-        <item>W</item>
-        <item>SP</item>
-        <item>SS1</item>
-        <item>SS2</item>
-    </string-array>
-
-    <string-array name="subject_array">
-        <item>CSE</item>
-        <item>ECE</item>
-    </string-array>
-
-    <string-array name="classSize_array">
-        <item>Tiny (0-40)</item>
-        <item>Small (41-75)</item>
-        <item>Medium (76-150)</item>
-        <item>Large (151-250)</item>
-        <item>Huge (251-400)</item>
-        <item>Gigantic (400+)</item>
-    </string-array>
+    <string name="mock_confirm">Message sent!</string>
+    <string name="filter">Filter:</string>
+    <string name="mock_nearby_message">Mock Nearby Message</string>
 </resources>

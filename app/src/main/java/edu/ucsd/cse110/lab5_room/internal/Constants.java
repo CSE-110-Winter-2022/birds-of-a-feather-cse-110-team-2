@@ -3,6 +3,9 @@ package edu.ucsd.cse110.lab5_room.internal;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
+
+import edu.ucsd.cse110.lab5_room.model.Course;
 
 public final class Constants {
     private Constants() {}
@@ -25,12 +28,17 @@ public final class Constants {
             '+', ',', ';', '='
     ));
 
-    // remove or add users to discover list
-    public static final int ACTION_ADD = 0;
-    public static final int ACTION_REMOVE = 1;
+    public static final Course.Quarter CURR_QUARTER = Course.Quarter.WI;
+    public static final int CURR_YEAR               = 2022;
+    public static final UUID MY_UUID = UUID.fromString("4b295157-ba31-4f9f-8401-5d85d9cf659a");
+
+    public static final int MINS_AUTOSAVE = 1;
 
     public static final String USER_NAME    = "name";
     public static final String USER_PFP     = "profileURL";
+    public static final String IS_MOCKED    = "is_mocking";
     public static final String USER_COURSES = "courses";
     public static final String USER_ID      = "studentId";
+
+
 }

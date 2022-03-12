@@ -1,16 +1,15 @@
-package edu.ucsd.cse110.lab5_room.auth;
+package edu.ucsd.cse110.lab5_room;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import edu.ucsd.cse110.lab5_room.R;
-import edu.ucsd.cse110.lab5_room.internal.BoFButton;
 import edu.ucsd.cse110.lab5_room.internal.Constants;
-import edu.ucsd.cse110.lab5_room.internal.CustomFilter;
+import edu.ucsd.cse110.lab5_room.ui.AuthActivity;
+import edu.ucsd.cse110.lab5_room.ui.BoFButton;
+import edu.ucsd.cse110.lab5_room.ui.CustomFilter;
 
 public class LoginActivity extends AuthActivity {
     private final String TAG = "LoginActivity";
@@ -39,8 +38,7 @@ public class LoginActivity extends AuthActivity {
     }
 
     public void onLoginNextClicked(View v) {
-        Intent intent = new Intent(this, AddClassesActivity.class);
-        intent.putExtra(Constants.USER_NAME, this.firstName.getText().toString());
-        startActivity(intent);
+        accumulateString(Constants.USER_NAME, this.firstName.getText().toString());
+        moveOn(AddClassesActivity.class);
     }
 }

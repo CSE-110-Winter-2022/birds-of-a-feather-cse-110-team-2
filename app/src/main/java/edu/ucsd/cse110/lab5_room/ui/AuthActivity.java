@@ -1,13 +1,12 @@
-package edu.ucsd.cse110.lab5_room.auth;
+package edu.ucsd.cse110.lab5_room.ui;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.Settings;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -16,19 +15,26 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class AuthActivity extends AppCompatActivity {
+public abstract class AuthActivity extends AppCompatActivity {
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // hide action bar
         Objects.requireNonNull(getSupportActionBar()).hide();
+
+        // accumulate and pass on intent
+        this.intent = getIntent();
     }
 
     @Override
@@ -60,13 +66,13 @@ public class AuthActivity extends AppCompatActivity {
                     // button to request permissions
                     Button requestBtn = btDialog.findViewById(R.id.promptbt_btn_request);
                     if (requestBtn != null) {
-                        requestBtn.setOnClickListener((v) -> {
-                            EasyPermissions.requestPermissions(context,
-                                    context.getString(R.string.bluetooth_prompt),
-                                    3,
-                                    permissions
-                            );
-                        });
+                        requestBtn.setOnClickListener((v) ->
+                            EasyPermissions.requestPermissions(
+                                context,
+                                context.getString(R.string.bluetooth_prompt),
+                                3,
+                                permissions
+                            ));
                     }
 
                     // button to go to settings
@@ -82,5 +88,26 @@ public class AuthActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    protected String getAccumulatedString(String extraName) {
+        return this.intent.getStringExtra(extraName);
+    }
+
+    protected List<?> getAccumulatedList(String extraName) {
+        return this.intent.getParcelableArrayListExtra(extraName);
+    }
+
+    protected void accumulateString(String extraName, String value) {
+        this.intent.putExtra(extraName, value);
+    }
+
+    protected void accumulateList(String extraName, ArrayList<Parcelable> value) {
+        this.intent.putExtra(extraName, value);
+    }
+
+    protected void moveOn(Class<? extends AuthActivity> next) {
+        this.intent.setClass(this, next);
+        startActivity(this.intent);
     }
 }

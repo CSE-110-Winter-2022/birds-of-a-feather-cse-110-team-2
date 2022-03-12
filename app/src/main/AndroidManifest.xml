@@ -17,14 +17,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab5Ref">
+        <meta-data
+            android:name="com.google.android.nearby.messages.API_KEY"
+            android:value="AIzaSyAlpPUnCUI3ExUjqguuPdqISpJ2cglDP5U" />
+
         <activity
-            android:name=".auth.AddClassesActivity"
+            android:name=".NearbyMockActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.CreateProfilePictureActivity"
+            android:name=".AddClassesActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.LoginActivity"
+            android:name=".CreateProfilePictureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".PersonDetailActivity"

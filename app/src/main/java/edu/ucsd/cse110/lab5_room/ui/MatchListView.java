@@ -1,12 +1,12 @@
-package edu.ucsd.cse110.lab5_room;
+package edu.ucsd.cse110.lab5_room.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,22 +18,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import edu.ucsd.cse110.lab5_room.internal.MatchList;
-import edu.ucsd.cse110.lab5_room.model.Match;
+import edu.ucsd.cse110.lab5_room.internal.Constants;
+import edu.ucsd.cse110.lab5_room.PersonDetailActivity;
+import edu.ucsd.cse110.lab5_room.R;
+import edu.ucsd.cse110.lab5_room.model.Student;
+import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 
 public class MatchListView extends FrameLayout {
     // creates an internal RecyclerView
     private final RecyclerView rv;
     private final Context context;
     private MLAdapter adapter;
-
-    SortType filter = SortType.DEFAULT;
-    public enum SortType {
-        DEFAULT,
-        FAVORITES,
-        CLASS_SIZE,
-        CLASS_RECENT
-    }
 
     public MatchListView(Context context) {
         super(context);
@@ -56,7 +51,10 @@ public class MatchListView extends FrameLayout {
 
     private void init() {
         // make sure the RecyclerView actually shows up
+        this.rv.setLayoutManager(new LinearLayoutManager(context));
         this.addView(this.rv);
+        this.adapter = new MLAdapter();
+        this.rv.setAdapter(this.adapter);
     }
 
     private RecyclerView createRecyclerView(Context context, @Nullable AttributeSet attrs) {
@@ -73,30 +71,25 @@ public class MatchListView extends FrameLayout {
         return null;
     }
 
-    // set the StudentListView to list students
-    public void trackStudents(MatchList matches) {
-        this.rv.setLayoutManager(new LinearLayoutManager(context));
-        this.adapter = new MLAdapter(matches, this.filter);
-        this.rv.setAdapter(this.adapter);
+    public void updateList(Student[] students) {
+        //init();
+
+        this.adapter.setStudents(students);
     }
 
-    public void sortBy(SortType s) {
-        this.adapter.setFilter(s);
+    public void updateList() {
         this.adapter.notifyDataSetChanged();
     }
 
     // MLAdapter creates the list from a data source
     private static class MLAdapter extends RecyclerView.Adapter<MLViewHolder> {
-        private MatchList matches;
-        private SortType filter;
+        private Student[] students;
 
-        public MLAdapter(MatchList matches, SortType filter) {
-            this.matches = matches;
-            this.filter   = filter;
-        }
 
-        void setFilter(SortType filter) {
-            this.filter = filter;
+        public void setStudents(Student[] students) {
+            this.students = students;
+            notifyDataSetChanged();
+            //notifyAll();
         }
 
         @NonNull
@@ -111,12 +104,12 @@ public class MatchListView extends FrameLayout {
 
         @Override
         public void onBindViewHolder(@NonNull MLViewHolder holder, int position) {
-            holder.setStudent(this.matches.get(position, this.filter));
+            holder.setStudent(students[position]);
         }
 
         @Override
         public int getItemCount() {
-            return this.matches.size();
+            return this.students.length;
         }
     }
 
@@ -125,31 +118,43 @@ public class MatchListView extends FrameLayout {
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         private final TextView nameView;
-        private Match match;
+        private Student match;
+        private CheckBox isFavoriteBox;
         private final ImageView personPictureView;
+        private final TextView courseView;
 
         public MLViewHolder(@NonNull View itemView) {
             super(itemView);
             this.nameView = itemView.findViewById(R.id.person_row_name);
             this.personPictureView = itemView.findViewById(R.id.person_row_picture);
+            this.courseView = itemView.findViewById(R.id.course);
+            this.isFavoriteBox = itemView.findViewById(R.id.favoritesToggleBox);
             itemView.setOnClickListener(this);
         }
 
-        public void setStudent(Match m) {
+        public void setStudent(Student m) {
             this.match = m;
             this.nameView.setText(m.getName());
+            //TODO: implement student matching class method
+            this.courseView.setText("1");
+            this.isFavoriteBox.setChecked(this.match.getFavorite());
+            this.isFavoriteBox.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean isChecked = ((CheckBox)view).isChecked();
+                    AppDatabase db = AppDatabase.singleton(view.getContext());
+                    db.studentDao().setFavorite(match.getId(), isChecked);
+                }
+            });
             Picasso.get().load(match.getPhotoURL()).into(personPictureView);
         }
 
         @Override
         public void onClick(View view) {
             Context context = view.getContext();
-            //Utilities.showAlert(context, "You clicked on " + this.person.getName() + "!");
-            // TODO fix
+
             Intent intent = new Intent(context, PersonDetailActivity.class);
-            intent.putExtra("student_name", this.match.getName());
-            intent.putExtra("student_classes", (Parcelable) this.match.getClasses());
-            intent.putExtra("student_photo_url", this.match.getPhotoURL());
+            intent.putExtra(Constants.USER_ID, this.match.getId().toString());
             context.startActivity(intent);
         }
     }
