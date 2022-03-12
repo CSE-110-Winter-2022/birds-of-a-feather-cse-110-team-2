@@ -8,7 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
+import edu.ucsd.cse110.lab5_room.data.match.StatefulMatchList;
 import edu.ucsd.cse110.lab5_room.data.SavedListManager;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 
@@ -22,7 +22,7 @@ public class SavedSelectDialog extends AppCompatDialogFragment
     private final Callback callback;
 
     public interface Callback {
-        void update(FilterableMatchList list);
+        void update(StatefulMatchList list);
     }
 
     public SavedSelectDialog(Callback callback) {
@@ -47,8 +47,13 @@ public class SavedSelectDialog extends AppCompatDialogFragment
             app = (BoFApplication) (getActivity().getApplication());
 
         app.executorService.submit(() -> {
-            FilterableMatchList list = this.sm.get(getContext(), this.items[i]);
-            this.callback.update(list);
+            try {
+                StatefulMatchList list = this.sm.get(getContext(), this.items[i]);
+                this.callback.update(list);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 }

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
+import edu.ucsd.cse110.lab5_room.data.match.StatefulMatchList;
 import edu.ucsd.cse110.lab5_room.internal.Constants;
 
 public class AutoSave extends Worker {
@@ -21,7 +22,7 @@ public class AutoSave extends Worker {
 
     private static final String KEY_LIST = "match-list";
 
-    public static void register(Context c, FilterableMatchList list) {
+    public static void register(Context c, StatefulMatchList list) {
         PeriodicWorkRequest autoSaveRequest = new PeriodicWorkRequest
                 .Builder(AutoSave.class, Constants.MINS_AUTOSAVE, TimeUnit.MINUTES)
                 .setInputData(
@@ -62,7 +63,7 @@ public class AutoSave extends Worker {
         // get match list passed to worker
         Data inputData = getInputData();
         byte[] matchListBytes = inputData.getByteArray(KEY_LIST);
-        FilterableMatchList list = FilterableMatchList.deserialize(
+        StatefulMatchList list = StatefulMatchList.deserialize(
                 getApplicationContext(),
                 matchListBytes
         );
