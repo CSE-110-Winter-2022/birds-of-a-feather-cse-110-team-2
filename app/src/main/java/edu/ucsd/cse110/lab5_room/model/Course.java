@@ -147,7 +147,6 @@ public class Course implements Parcelable {
 //        return this.quartersAgo;
 //    }
 
-    // bullshit POJO comparison boilerplate
     @Override
     public boolean equals(Object o) {
         if (o.getClass() != Course.class)
@@ -180,7 +179,6 @@ public class Course implements Parcelable {
         return 0;
     }
 
-    // bullshit Parcelable boilerplate so we can serialize between Intents
     protected Course(Parcel in) {
         this.id = in.readInt();
         this.department = Department.valueOf(in.readString());
