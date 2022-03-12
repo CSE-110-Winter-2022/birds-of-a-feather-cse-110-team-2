@@ -71,7 +71,7 @@ public class PersonDetailActivity extends AppCompatActivity {
                studentNameView.setText(studentName);
                favoriteBox.setChecked(isFavorite);
 
-               Picasso.get().load(studentPFP).into(studentPFPView);
+               Picasso.get().load(studentPFP).resize(320, 320).into(studentPFPView);
            });
         });
 
