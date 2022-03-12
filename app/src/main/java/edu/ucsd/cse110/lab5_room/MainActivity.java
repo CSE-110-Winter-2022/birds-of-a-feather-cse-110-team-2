@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArraySet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -105,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
         // set up Nearby
         NearbyMessageHandler handler = NearbyMessageHandler.singleton(this);
         NearbyMessageListener nearbyListener = new NearbyMessageListener(this, handler);
+
+        Log.d("TAG", matchList.toString());
 
         // change internal search state with search button
         final Button searchButton = findViewById(R.id.start);

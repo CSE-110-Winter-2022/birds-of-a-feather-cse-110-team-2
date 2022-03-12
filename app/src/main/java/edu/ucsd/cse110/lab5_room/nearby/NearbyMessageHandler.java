@@ -1,6 +1,7 @@
 package edu.ucsd.cse110.lab5_room.nearby;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.UUID;
 import de.siegmar.fastcsv.reader.CsvReader;
 import de.siegmar.fastcsv.reader.CsvRow;
 import edu.ucsd.cse110.lab5_room.data.SearchManager;
+import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
+import edu.ucsd.cse110.lab5_room.internal.Constants;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 
@@ -25,11 +28,16 @@ public class NearbyMessageHandler {
 
     private final Context ctx;
     private final AppDatabase db;
-    private final UUID myUUID;
+//    private UUID myUUID;
     public NearbyMessageHandler(Context c) {
+        BoFApplication app = (BoFApplication) c.getApplicationContext();
+
         this.ctx = c;
         this.db  = AppDatabase.singleton(c);
-        this.myUUID = this.db.studentDao().getMe().getId();
+//        this.myUUID = this.db.studentDao().getMe().getId();
+//        app.executorService.submit(() -> {
+//
+//        });
     }
 
     private void addStudent(UUID id, String name, String pfp, List<Course> courses) {
@@ -54,8 +62,9 @@ public class NearbyMessageHandler {
                 switch (row.getField(1)) {
                     case MSG_WAVE:
                         // we have a wave from currId to newId
-                        if (newId == this.myUUID) {
+                        if (newId == Constants.MY_UUID) {
                             // TODO handle wave
+                            this.db.studentDao().setWave(currId, true);
                         }
                         break;
                 }

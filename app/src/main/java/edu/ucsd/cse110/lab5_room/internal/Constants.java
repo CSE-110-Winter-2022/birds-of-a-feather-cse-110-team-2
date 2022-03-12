@@ -3,6 +3,7 @@ package edu.ucsd.cse110.lab5_room.internal;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import edu.ucsd.cse110.lab5_room.model.Course;
 
@@ -29,6 +30,7 @@ public final class Constants {
 
     public static final Course.Quarter CURR_QUARTER = Course.Quarter.WI;
     public static final int CURR_YEAR               = 2022;
+    public static final UUID MY_UUID = UUID.fromString("4b295157-ba31-4f9f-8401-5d85d9cf659a");
 
     public static final int MINS_AUTOSAVE = 1;
 

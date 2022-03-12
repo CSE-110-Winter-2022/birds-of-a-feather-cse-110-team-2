@@ -44,7 +44,7 @@ public class CreateProfilePictureActivity extends AuthActivity {
         app.executorService.submit(() -> {
             SearchManager.checkMatches(
                     this,
-                    UUID.fromString("4b295157-ba31-4f9f-8401-5d85d9cf659a"),
+                    Constants.MY_UUID,
                     true,
                     name,
                     pfp,

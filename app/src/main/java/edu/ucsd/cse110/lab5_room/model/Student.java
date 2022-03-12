@@ -24,12 +24,20 @@ public class Student {
     @ColumnInfo(name = "favorite")
     private boolean favorite;
 
-    public Student(@NonNull UUID id, boolean isMe, String name, String photoURL, boolean favorite) {
+    @ColumnInfo(name = "wave_received")
+    private boolean waveReceived;
+
+    public Student(@NonNull UUID id, boolean isMe, String name, String photoURL, boolean favorite, boolean waveReceived) {
         this.id = id;
         this.isMe = isMe;
         this.name = name;
         this.photoURL = photoURL;
         this.favorite = favorite;
+        this.waveReceived = waveReceived;
+    }
+
+    public boolean getWaveReceived() {
+        return this.waveReceived;
     }
 
     public boolean getIsMe() {
@@ -49,9 +57,17 @@ public class Student {
         return this.photoURL;
     }
 
-    public void setFavorite(boolean isFavorite) {this.favorite = isFavorite;}
+    public void setFavorite(boolean isFavorite) {
+        this.favorite = isFavorite;
+    }
 
-    public void setId(UUID newID) {this.id = newID;}
+    public void setWaveReceived(boolean w) {
+        this.waveReceived = w;
+    }
+
+    public void setId(UUID newID) {
+        this.id = newID;
+    }
 
     public boolean getFavorite() {
         return this.favorite;

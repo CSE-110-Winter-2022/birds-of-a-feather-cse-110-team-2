@@ -27,6 +27,9 @@ public abstract class StudentDao {
     @Query("update student set favorite=:isFavorite where id=:id")
     public abstract void setFavorite(UUID id, boolean isFavorite);
 
+    @Query("update student set wave_received=:wave where id=:id")
+    public abstract void setWave(UUID id, boolean wave);
+
     @Insert
     public abstract void insert(Student student);
 

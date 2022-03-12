@@ -32,9 +32,11 @@ public class SearchManager {
         // first, insert student into Students table
         // if the user already exists then we just move on
         try {
-            db.studentDao().insert(new Student(uuid, me, name, pfp, false));
+            db.studentDao().insert(new Student(uuid, me, name, pfp, false, false));
         }
-        catch (SQLiteConstraintException ignored) {}
+        catch (SQLiteConstraintException e) {
+            e.printStackTrace();
+        }
 
         // now add a roster entry for every course this student has taken
         RosterEntry[] entries = new RosterEntry[courses.size()];
