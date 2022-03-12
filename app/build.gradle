@@ -45,6 +45,9 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.4.1-alpha04'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.0-alpha04'
 
+    // periodically schedule tasks
+    implementation "androidx.work:work-runtime:2.7.1"
+
     // serialize objects
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 
