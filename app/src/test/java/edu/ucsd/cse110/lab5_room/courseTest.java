@@ -24,30 +24,29 @@ public class courseTest {
     @Test
     public void courseSizeOutput(){
         assertEquals(cse001.getSize(), 1);
-        assertEquals(cse001.getSize().toString(), "Tiny");
+        assertEquals(cse001.getSize().TINY.toString(), "Tiny");
 
         assertEquals(cse002.getSize(),0.33);
-        assertEquals(cse001.getSize().toString(), "Small");
+        assertEquals(cse001.getSize().SMALL.toString(), "Small");
 
         assertEquals(cse003.getSize(),0.18);
-        assertEquals(cse001.getSize().toString(), "Medium");
+        assertEquals(cse001.getSize().MEDIUM.toString(), "Medium");
 
         assertEquals(cse004.getSize(),0.1);
-        assertEquals(cse001.getSize().toString(), "Large");
+        assertEquals(cse001.getSize().LARGE.toString(), "Large");
 
         assertEquals(cse005.getSize(),0.08);
-        assertEquals(cse001.getSize().toString(), "Huge");
+        assertEquals(cse001.getSize().HUGE.toString(), "Huge");
 
         assertEquals(cse006.getSize(),0.03);
-        assertEquals(cse001.getSize().toString(), "Gigantic");
+        assertEquals(cse001.getSize().GIGANTIC.toString(), "Gigantic");
 
         assertEquals(ece007.getSize(),1);
-        assertEquals(cse001.getSize().toString(), "Tiny");
-
+        assertEquals(cse001.getSize().TINY.toString(), "Tiny");
     }
     @Test
     public void courseNameOutput(){
-        assertEquals(cse001.getClass(), 1);
+        assertEquals(cse001.getClass(),1);
         assertEquals(cse002.getClass(),2);
         assertEquals(cse003.getClass(),3);
         assertEquals(cse004.getClass(),4);
