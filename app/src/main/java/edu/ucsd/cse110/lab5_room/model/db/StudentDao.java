@@ -11,22 +11,25 @@ import java.util.UUID;
 import edu.ucsd.cse110.lab5_room.model.Student;
 
 @Dao
-public interface StudentDao {
+public abstract class StudentDao {
     @Query("select * from student where id=:id")
-    Student getById(UUID id);
+    public abstract Student getById(UUID id);
 
     @Query("select exists(select 1 from student where id=:id)")
-    boolean exists(UUID id);
+    public abstract boolean exists(UUID id);
 
     @Query("select exists(select 1 from student where is_me=1)")
-    boolean loggedIn();
+    public abstract boolean loggedIn();
 
     @Query("select * from student where is_me=1")
-    Student getMe();
+    public abstract Student getMe();
+
+    @Query("update student set favorite=:isFavorite where id=:id")
+    public abstract void setFavorite(UUID id, boolean isFavorite);
 
     @Insert
-    void insert(Student student);
+    public abstract void insert(Student student);
 
     @Delete
-    void delete(Student student);
+    public abstract void delete(Student student);
 }

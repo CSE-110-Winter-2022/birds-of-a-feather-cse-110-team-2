@@ -10,7 +10,7 @@ import java.util.UUID;
 @Entity
 public class Student {
     @PrimaryKey @NonNull
-    UUID id;
+    private UUID id;
 
     @ColumnInfo(name = "is_me")
     private final boolean isMe;
@@ -22,7 +22,7 @@ public class Student {
     private final String photoURL;
 
     @ColumnInfo(name = "favorite")
-    private final boolean favorite;
+    private boolean favorite;
 
     public Student(@NonNull UUID id, boolean isMe, String name, String photoURL, boolean favorite) {
         this.id = id;
@@ -48,6 +48,10 @@ public class Student {
     public String getPhotoURL() {
         return this.photoURL;
     }
+
+    public void setFavorite(boolean isFavorite) {this.favorite = isFavorite;}
+
+    public void setId(UUID newID) {this.id = newID;}
 
     public boolean getFavorite() {
         return this.favorite;
