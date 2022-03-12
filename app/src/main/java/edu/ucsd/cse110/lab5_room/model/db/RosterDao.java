@@ -26,6 +26,8 @@ public abstract class RosterDao {
     @Query("select exists(select 1 from RosterEntry where (student=:sid and course=:cid))")
     public abstract boolean enrolled(UUID sid, int cid);
 
+    @Query("select * from RosterEntry where (student=:sid)")
+    public abstract List<RosterEntry> getRosterByStudentId(UUID sid);
 
     public boolean amEnrolled(Context c, Course course) {
         StudentDao studentDao = AppDatabase.singleton(c).studentDao();

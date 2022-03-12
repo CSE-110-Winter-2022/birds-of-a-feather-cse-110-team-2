@@ -7,9 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(indices = {@Index(value = {"department", "number", "quarter", "year"}, unique = true)})
 public class Course implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     public int id = 0;

@@ -44,6 +44,7 @@ public class NearbyMockActivity extends AppCompatActivity
             runOnUiThread(() -> {
                 Toast.makeText(this, R.string.mock_confirm, Toast.LENGTH_LONG)
                     .show();
+                mockBox.setText("");
             });
         });
     }

@@ -1,5 +1,6 @@
 package edu.ucsd.cse110.lab5_room.model.db;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.util.Log;
 
 import androidx.room.Dao;
@@ -24,14 +25,15 @@ public abstract class CourseDao {
     public abstract boolean exists(Course.Department department, int number, Course.Quarter quarter, int year);
 
     public Course getOrCreate(Course.Department department, int number, Course.Size size, Course.Quarter quarter, int year) {
-        // try getting and return if exists
-        if (exists(department, number, quarter, year))
-            return getCourse(department, number, quarter, year);
-
         // otherwise create new
-        Course c = new Course(department, number, size, quarter, year);
-        int cid = (int) insert(c);
-        return new Course(cid, department, number, size, quarter, year);
+        try {
+            Course c = new Course(department, number, size, quarter, year);
+            int cid = (int) insert(c);
+            return new Course(cid, department, number, size, quarter, year);
+        }
+        catch (SQLiteConstraintException e) {
+            return getCourse(department, number, quarter, year);
+        }
     }
 
     @Query("select * from course where id=:id;")
