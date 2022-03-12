@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.PersonDetailActivity;
 import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.model.Student;
+import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 
 public class MatchListView extends FrameLayout {
     // creates an internal RecyclerView
@@ -118,6 +120,7 @@ public class MatchListView extends FrameLayout {
             implements View.OnClickListener {
         private final TextView nameView;
         private Student match;
+        private CheckBox isFavoriteBox;
         private final ImageView personPictureView;
         private final TextView courseView;
 
@@ -126,6 +129,7 @@ public class MatchListView extends FrameLayout {
             this.nameView = itemView.findViewById(R.id.person_row_name);
             this.personPictureView = itemView.findViewById(R.id.person_row_picture);
             this.courseView = itemView.findViewById(R.id.course);
+            this.isFavoriteBox = itemView.findViewById(R.id.favoritesToggleBox);
             itemView.setOnClickListener(this);
         }
 
@@ -134,6 +138,15 @@ public class MatchListView extends FrameLayout {
             this.nameView.setText(m.getName());
             //TODO: implement student matching class method
             this.courseView.setText("1");
+            this.isFavoriteBox.setChecked(this.match.getFavorite());
+            this.isFavoriteBox.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean isChecked = ((CheckBox)view).isChecked();
+                    AppDatabase db = AppDatabase.singleton(view.getContext());
+                    db.studentDao().setFavorite(match.getId(), isChecked);
+                }
+            });
             Picasso.get().load(match.getPhotoURL()).into(personPictureView);
         }
 
