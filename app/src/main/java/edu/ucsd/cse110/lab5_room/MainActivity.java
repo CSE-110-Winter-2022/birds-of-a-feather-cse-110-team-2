@@ -3,19 +3,18 @@ package edu.ucsd.cse110.lab5_room;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArraySet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
 
 import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
-import edu.ucsd.cse110.lab5_room.data.StudentCreator;
+import edu.ucsd.cse110.lab5_room.data.SearchManager;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
@@ -59,13 +58,14 @@ public class MainActivity extends AppCompatActivity {
         // button to add a new mocked user
         Button mockButton = findViewById(R.id.btn_mock);
         mockButton.setOnClickListener(view -> {
-            Intent i = new Intent(this, LoginActivity.class);
-            i.putExtra(Constants.IS_MOCKED, true);
+//            Intent i = new Intent(this, LoginActivity.class);
+//            i.putExtra(Constants.IS_MOCKED, true);
+            Intent i = new Intent(this, NearbyMockActivity.class);
             startActivity(i);
         });
 
         // get matches
-        matchList = StudentCreator.getMatches(this);
+        matchList = SearchManager.getMatches(this);
         studentList = findViewById(R.id.student_list);
         registerFilterObserver(() -> studentList.updateList(matchList.sort(sort)));
 
@@ -96,6 +96,17 @@ public class MainActivity extends AppCompatActivity {
             if (!searchActive) {
                 DialogFragment saveListDialog = new SaveListDialog(matchList);
                 saveListDialog.show(getSupportFragmentManager(), "Save List");
+                saveListDialog.onDismiss(new DialogInterface() {
+                    @Override
+                    public void cancel() {
+                        refresh();
+                    }
+
+                    @Override
+                    public void dismiss() {
+                        refresh();
+                    }
+                });
             }
 
             // stop search
@@ -118,5 +129,13 @@ public class MainActivity extends AppCompatActivity {
         currState = (currState + 1) % filterStates.length;
         sort = filterStates[currState];
         updateFilters();
+    }
+
+    public void refresh() {
+        // https://stackoverflow.com/a/38720750/1420247
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 }

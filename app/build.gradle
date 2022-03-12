@@ -45,14 +45,17 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.4.1-alpha04'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.0-alpha04'
 
+    // serialize objects
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 
+    // csv parser for nearby
+    implementation 'de.siegmar:fastcsv:2.1.0'
 
     // Room
     def room_version = "2.4.2"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
-    //image loading library
+    // image loading library
     implementation 'com.squareup.picasso:picasso:2.71828'
 }

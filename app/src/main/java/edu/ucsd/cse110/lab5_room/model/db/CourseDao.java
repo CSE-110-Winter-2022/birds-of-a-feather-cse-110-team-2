@@ -34,10 +34,6 @@ public abstract class CourseDao {
         return new Course(cid, department, number, size, quarter, year);
     }
 
-    public void enroll(Student s, Course c) {
-
-    }
-
     @Query("select * from course where id=:id;")
     public abstract Course getById(int id);
 

@@ -14,6 +14,9 @@ public interface StudentDao {
     @Query("select * from student where id=:id")
     Student getById(UUID id);
 
+    @Query("select exists(select 1 from student where id=:id)")
+    boolean exists(UUID id);
+
     @Query("select exists(select 1 from student where is_me=1)")
     boolean loggedIn();
 
@@ -21,7 +24,7 @@ public interface StudentDao {
     Student getMe();
 
     @Insert
-    long insert(Student student);
+    void insert(Student student);
 
     @Delete
     void delete(Student student);

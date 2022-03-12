@@ -11,7 +11,6 @@ import edu.ucsd.cse110.lab5_room.model.*;
 @Database(entities = {Student.class, RosterEntry.class, Course.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase db;
-
     public static AppDatabase singleton(Context c) {
         if (db == null || !db.isOpen()) {
             db = Room.databaseBuilder(c, AppDatabase.class, "bof.db")

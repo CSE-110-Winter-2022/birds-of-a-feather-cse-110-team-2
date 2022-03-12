@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lab5Ref">
         <activity
+            android:name=".NearbyMockActivity"
+            android:exported="false" />
+        <activity
             android:name=".auth.AddClassesActivity"
             android:exported="false" />
         <activity

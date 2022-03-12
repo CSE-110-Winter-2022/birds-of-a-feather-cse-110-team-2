@@ -82,23 +82,23 @@ public class Course implements Parcelable {
     }
 
     public enum Quarter {
-        FALL {
+        FA {
             @NonNull
             public String toString() { return "Fall"; }
         },
-        WINTER {
+        WI {
             @NonNull
             public String toString() { return "Winter"; }
         },
-        SPRING {
+        SP {
             @NonNull
             public String toString() { return "Spring"; }
         },
-        SUMMER1 {
+        SS1 {
             @NonNull
             public String toString() { return "Summer Session 1"; }
         },
-        SUMMER2 {
+        SS2 {
             @NonNull
             public String toString() { return "Summer Session 2"; }
         }
