@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.work.Data;
 import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -64,10 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         // hide action bar
         Objects.requireNonNull(getSupportActionBar()).hide();
-        PeriodicWorkRequest autoSaveRequest = new PeriodicWorkRequest
-                .Builder(AutoSave.class, 5, TimeUnit.MINUTES)
-                .setInputData(new Data.Builder().putByteArray("match-list", matchList.serialize()).build())
-                .build();
+
         // button to add a new mocked user
         Button mockButton = findViewById(R.id.btn_mock);
         mockButton.setOnClickListener(view -> {
@@ -115,8 +113,14 @@ public class MainActivity extends AppCompatActivity {
             searchButton.setText((searchActive) ? "Stop" : "Start");
             viewSaved.setVisibility((searchActive) ? View.INVISIBLE : View.VISIBLE);
 
-            // prompt user to save when stop button pressed
-            if (!searchActive) {
+            if (searchActive) {
+                // register autosave
+                AutoSave.register(this, matchList);
+            }
+            else {
+                // prompt user to save when stop button pressed
+                AutoSave.deleteLast();
+                AutoSave.deregister(this);
                 DialogFragment saveListDialog = new SaveListDialog(matchList);
                 saveListDialog.show(getSupportFragmentManager(), "Save List");
             }

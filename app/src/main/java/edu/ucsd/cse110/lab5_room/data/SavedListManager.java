@@ -54,4 +54,14 @@ public class SavedListManager {
 
         return FilterableMatchList.deserialize(c, list);
     }
+
+    public void remove(String name) {
+        Set<String> names = getSaveNames();
+        names.remove(name);
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(SAVE_PREFIX + name);
+        editor.putStringSet(ALL_SAVES, names);
+        editor.apply();
+    }
 }
