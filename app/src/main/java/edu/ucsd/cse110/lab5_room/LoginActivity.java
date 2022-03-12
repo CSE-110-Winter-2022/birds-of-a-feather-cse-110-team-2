@@ -1,15 +1,14 @@
-package edu.ucsd.cse110.lab5_room.auth;
+package edu.ucsd.cse110.lab5_room;
 
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import edu.ucsd.cse110.lab5_room.R;
+import edu.ucsd.cse110.lab5_room.internal.Constants;
+import edu.ucsd.cse110.lab5_room.ui.AuthActivity;
 import edu.ucsd.cse110.lab5_room.ui.BoFButton;
-import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.ui.CustomFilter;
 
 public class LoginActivity extends AuthActivity {

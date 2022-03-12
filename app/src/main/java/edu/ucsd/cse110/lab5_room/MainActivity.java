@@ -2,37 +2,34 @@ package edu.ucsd.cse110.lab5_room;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.work.Data;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArraySet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.google.android.gms.nearby.messages.Message;
+
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
 import edu.ucsd.cse110.lab5_room.data.AutoSave;
-import edu.ucsd.cse110.lab5_room.data.SavedListManager;
 import edu.ucsd.cse110.lab5_room.data.SearchManager;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
 import edu.ucsd.cse110.lab5_room.internal.EnumAdapter;
+import edu.ucsd.cse110.lab5_room.nearby.NearbyBroadcastComposer;
+import edu.ucsd.cse110.lab5_room.nearby.NearbyMessageHandler;
+import edu.ucsd.cse110.lab5_room.nearby.NearbyMessageListener;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 import edu.ucsd.cse110.lab5_room.ui.MatchListView;
 import edu.ucsd.cse110.lab5_room.ui.SaveListDialog;
 import edu.ucsd.cse110.lab5_room.ui.SavedSelectDialog;
 
 public class MainActivity extends AppCompatActivity {
-    private static boolean searchActive = true;
+    private static boolean searchActive = false;
 
     private static int currState = 0;
     private static final FilterableMatchList.SortType[] filterStates = FilterableMatchList.SortType.values();
@@ -105,28 +102,42 @@ public class MainActivity extends AppCompatActivity {
             viewSavedDialog.show(getSupportFragmentManager(), "Saved Lists");
         });
 
+        // set up Nearby
+        NearbyMessageHandler handler = NearbyMessageHandler.singleton(this);
+        NearbyMessageListener nearbyListener = new NearbyMessageListener(this, handler);
+
         // change internal search state with search button
-        // TODO move this to a new class and implement Nearby
         final Button searchButton = findViewById(R.id.start);
         searchButton.setOnClickListener(v -> {
+            // toggle search
+            searchActive = !searchActive;
+
             // update UI
             searchButton.setText((searchActive) ? "Stop" : "Start");
             viewSaved.setVisibility((searchActive) ? View.INVISIBLE : View.VISIBLE);
 
             if (searchActive) {
-                // register autosave
-                AutoSave.register(this, matchList);
+                // begin search and broadcast myself
+                app.executorService.submit(() -> {
+                    nearbyListener.start();
+                    Message broadcast = NearbyBroadcastComposer.broadcast(this);
+                    nearbyListener.send(broadcast);
+
+                    // begin autosaving
+                    AutoSave.register(this, matchList);
+                });
             }
             else {
-                // prompt user to save when stop button pressed
-                AutoSave.deleteLast();
+                // stop search
+                nearbyListener.stop();
+
+                // stop autosave
                 AutoSave.deregister(this);
+
+                // prompt user to save
                 DialogFragment saveListDialog = new SaveListDialog(matchList);
                 saveListDialog.show(getSupportFragmentManager(), "Save List");
             }
-
-            // stop search
-            searchActive = !searchActive;
         });
 
         updateFilters();

@@ -50,4 +50,5 @@
 
     <string name="mock_confirm">Message sent!</string>
     <string name="filter">Filter:</string>
+    <string name="mock_nearby_message">Mock Nearby Message</string>
 </resources>

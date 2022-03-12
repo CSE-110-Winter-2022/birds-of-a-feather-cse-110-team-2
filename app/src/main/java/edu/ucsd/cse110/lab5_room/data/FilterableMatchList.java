@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import edu.ucsd.cse110.lab5_room.Constants;
+import edu.ucsd.cse110.lab5_room.internal.Constants;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.model.RosterEntry;
 import edu.ucsd.cse110.lab5_room.model.Student;
@@ -50,10 +50,10 @@ public class FilterableMatchList {
 
     public enum StandardFilter {
         NONE("Default", (s, c) -> true),
-        CURRENT("This quarter only", (s, c) ->
+        CURRENT("This Quarter Only", (s, c) ->
             (c.getYear() == Constants.CURR_YEAR) && (c.getQuarter() == Constants.CURR_QUARTER)
         ),
-        FAVORITES("Favorites only", (s, c) -> s.getFavorite());
+        FAVORITES("Favorites Only", (s, c) -> s.getFavorite());
 
         public final String name;
         public final Filter filter;

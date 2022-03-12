@@ -7,10 +7,10 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import edu.ucsd.cse110.lab5_room.Constants;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.model.RosterEntry;
 import edu.ucsd.cse110.lab5_room.model.Student;
@@ -28,6 +28,8 @@ public abstract class RosterDao {
 
     @Query("select * from RosterEntry where (student=:sid)")
     public abstract List<RosterEntry> getRosterByStudentId(UUID sid);
+
+
 
     public boolean amEnrolled(Context c, Course course) {
         StudentDao studentDao = AppDatabase.singleton(c).studentDao();

@@ -1,12 +1,9 @@
-package edu.ucsd.cse110.lab5_room.auth;
+package edu.ucsd.cse110.lab5_room;
 
 import androidx.appcompat.app.AlertDialog;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,13 +13,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.ucsd.cse110.lab5_room.Constants;
-import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
+import edu.ucsd.cse110.lab5_room.internal.Constants;
 import edu.ucsd.cse110.lab5_room.internal.EnumAdapter;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 import edu.ucsd.cse110.lab5_room.model.db.CourseDao;
+import edu.ucsd.cse110.lab5_room.ui.AuthActivity;
 
 public class AddClassesActivity extends AuthActivity {
     EditText numberET;

@@ -1,26 +1,5 @@
 package edu.ucsd.cse110.lab5_room;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-
-import android.view.View;
-import android.bluetooth.BluetoothA2dp;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothHeadset;
-import android.bluetooth.BluetoothProfile;
-import android.content.BroadcastReceiver;
-import android.content.Intent;
-import android.os.HandlerThread;
-import android.os.ParcelUuid;
-import android.os.TestLooperManager;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import edu.ucsd.cse110.lab5_room.auth.LoginActivity;
-
 public class loginTest {
 /*
     @Test

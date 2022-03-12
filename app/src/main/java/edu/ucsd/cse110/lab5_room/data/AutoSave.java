@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
-import edu.ucsd.cse110.lab5_room.Constants;
+import edu.ucsd.cse110.lab5_room.internal.Constants;
 
 public class AutoSave extends Worker {
     private static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("M/d/uu K:ma");

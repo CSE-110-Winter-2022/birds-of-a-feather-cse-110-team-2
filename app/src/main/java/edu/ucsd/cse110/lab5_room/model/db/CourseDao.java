@@ -1,6 +1,8 @@
 package edu.ucsd.cse110.lab5_room.model.db;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
+import android.util.ArraySet;
 import android.util.Log;
 
 import androidx.room.Dao;
@@ -9,9 +11,10 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import java.util.List;
+import java.util.Set;
 
 import edu.ucsd.cse110.lab5_room.model.Course;
-import edu.ucsd.cse110.lab5_room.model.Student;
+import edu.ucsd.cse110.lab5_room.model.RosterEntry;
 
 // store if i have taken a course
 @Dao
@@ -34,6 +37,19 @@ public abstract class CourseDao {
         catch (SQLiteConstraintException e) {
             return getCourse(department, number, quarter, year);
         }
+    }
+
+    public Set<Course> getMyCourses(Context c) {
+        AppDatabase db        = AppDatabase.singleton(c);
+        RosterDao   rosterDao = db.rosterDao();
+
+        List<RosterEntry> entries = rosterDao.getRosterByStudentId(db.studentDao().getMe().getId());
+        Set<Course> courses = new ArraySet<>();
+
+        for (RosterEntry e : entries)
+            courses.add(getById(e.getId()));
+
+        return courses;
     }
 
     @Query("select * from course where id=:id;")

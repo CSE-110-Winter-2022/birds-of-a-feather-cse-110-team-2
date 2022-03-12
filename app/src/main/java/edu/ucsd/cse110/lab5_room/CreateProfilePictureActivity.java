@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room.auth;
+package edu.ucsd.cse110.lab5_room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +8,12 @@ import android.widget.EditText;
 import java.util.List;
 import java.util.UUID;
 
-import edu.ucsd.cse110.lab5_room.MainActivity;
-import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.data.SearchManager;
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
 import edu.ucsd.cse110.lab5_room.model.Course;
+import edu.ucsd.cse110.lab5_room.ui.AuthActivity;
 import edu.ucsd.cse110.lab5_room.ui.BoFButton;
-import edu.ucsd.cse110.lab5_room.Constants;
+import edu.ucsd.cse110.lab5_room.internal.Constants;
 import edu.ucsd.cse110.lab5_room.ui.CustomFilter;
 
 public class CreateProfilePictureActivity extends AuthActivity {
@@ -43,7 +42,14 @@ public class CreateProfilePictureActivity extends AuthActivity {
 
         BoFApplication app = (BoFApplication) getApplication();
         app.executorService.submit(() -> {
-            SearchManager.checkMatches(this, UUID.randomUUID(), true, name, pfp, courses);
+            SearchManager.checkMatches(
+                    this,
+                    UUID.fromString("4b295157-ba31-4f9f-8401-5d85d9cf659a"),
+                    true,
+                    name,
+                    pfp,
+                    courses
+            );
         });
 
         // launch main intent

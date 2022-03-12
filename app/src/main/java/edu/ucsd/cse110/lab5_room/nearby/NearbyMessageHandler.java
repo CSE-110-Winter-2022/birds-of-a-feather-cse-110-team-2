@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room.internal;
+package edu.ucsd.cse110.lab5_room.nearby;
 
 import android.content.Context;
 
@@ -12,11 +12,11 @@ import edu.ucsd.cse110.lab5_room.data.SearchManager;
 import edu.ucsd.cse110.lab5_room.model.Course;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
 
-public class NearbyEventListener {
-    private static NearbyEventListener listener;
-    public static NearbyEventListener singleton(Context c) {
+public class NearbyMessageHandler {
+    private static NearbyMessageHandler listener;
+    public static NearbyMessageHandler singleton(Context c) {
         if (listener == null)
-            listener = new NearbyEventListener(c);
+            listener = new NearbyMessageHandler(c);
 
         return listener;
     }
@@ -25,9 +25,11 @@ public class NearbyEventListener {
 
     private final Context ctx;
     private final AppDatabase db;
-    public NearbyEventListener(Context c) {
+    private final UUID myUUID;
+    public NearbyMessageHandler(Context c) {
         this.ctx = c;
         this.db  = AppDatabase.singleton(c);
+        this.myUUID = this.db.studentDao().getMe().getId();
     }
 
     private void addStudent(UUID id, String name, String pfp, List<Course> courses) {
@@ -51,7 +53,10 @@ public class NearbyEventListener {
                 UUID newId = UUID.fromString(row.getField(0).trim());
                 switch (row.getField(1)) {
                     case MSG_WAVE:
-                        // TODO handle wave
+                        // we have a wave from currId to newId
+                        if (newId == this.myUUID) {
+                            // TODO handle wave
+                        }
                         break;
                 }
 

@@ -1,4 +1,4 @@
-package edu.ucsd.cse110.lab5_room.auth;
+package edu.ucsd.cse110.lab5_room.ui;
 
 import android.Manifest;
 import android.app.Activity;

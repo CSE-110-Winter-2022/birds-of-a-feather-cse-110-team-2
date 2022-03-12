@@ -2,10 +2,7 @@ package edu.ucsd.cse110.lab5_room;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,11 +16,10 @@ import java.util.List;
 import java.util.UUID;
 
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
+import edu.ucsd.cse110.lab5_room.internal.Constants;
 import edu.ucsd.cse110.lab5_room.model.RosterEntry;
 import edu.ucsd.cse110.lab5_room.model.Student;
 import edu.ucsd.cse110.lab5_room.model.db.AppDatabase;
-import edu.ucsd.cse110.lab5_room.model.db.StudentDao;
-import edu.ucsd.cse110.lab5_room.model.db.StudentDao_Impl;
 
 public class PersonDetailActivity extends AppCompatActivity {
     private AppDatabase db;

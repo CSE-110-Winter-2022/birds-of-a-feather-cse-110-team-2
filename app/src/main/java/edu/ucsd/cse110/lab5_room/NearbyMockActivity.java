@@ -10,14 +10,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import edu.ucsd.cse110.lab5_room.internal.BoFApplication;
-import edu.ucsd.cse110.lab5_room.internal.NearbyEventListener;
+import edu.ucsd.cse110.lab5_room.nearby.NearbyMessageHandler;
 
 public class NearbyMockActivity extends AppCompatActivity
     implements View.OnClickListener {
 
     private BoFApplication app;
     private EditText mockBox;
-    private NearbyEventListener listener;
+    private NearbyMessageHandler listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class NearbyMockActivity extends AppCompatActivity
         mockBox = findViewById(R.id.mockBox);
 
         app = (BoFApplication) getApplication();
-        listener = NearbyEventListener.singleton(this);
+        listener = NearbyMessageHandler.singleton(this);
 
         Button mockButton = findViewById(R.id.mockButton);
         mockButton.setOnClickListener(this);

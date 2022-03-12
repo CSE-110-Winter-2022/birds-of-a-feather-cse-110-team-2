@@ -3,7 +3,6 @@ package edu.ucsd.cse110.lab5_room.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import edu.ucsd.cse110.lab5_room.Constants;
+import edu.ucsd.cse110.lab5_room.internal.Constants;
 import edu.ucsd.cse110.lab5_room.PersonDetailActivity;
 import edu.ucsd.cse110.lab5_room.R;
 import edu.ucsd.cse110.lab5_room.model.Student;

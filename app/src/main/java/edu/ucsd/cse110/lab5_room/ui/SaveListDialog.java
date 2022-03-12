@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import edu.ucsd.cse110.lab5_room.R;
+import edu.ucsd.cse110.lab5_room.data.AutoSave;
 import edu.ucsd.cse110.lab5_room.data.SavedListManager;
 import edu.ucsd.cse110.lab5_room.data.FilterableMatchList;
 
@@ -39,8 +40,15 @@ public class SaveListDialog extends AppCompatDialogFragment {
         builder.setView(view)
                 .setTitle(R.string.save_dialog_title)
                 .setPositiveButton(R.string.save_text, (dialog, i) -> {
-                    save(nameET.getText().toString());
-                    dialog.cancel();
+                    String newName = nameET.getText().toString();
+                    if (newName.isEmpty())
+                        return;
+
+                    // save our new list and delete old autosave
+                    save(newName);
+                    AutoSave.deleteLast();
+
+                    dialog.dismiss();
                 })
                 .setNegativeButton(R.string.cancel_text, (dialog, i) -> dialog.cancel());
         return builder.create();
